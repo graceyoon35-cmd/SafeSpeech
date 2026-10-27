@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "experiment_id": "libritts_original_gaussian_smoke",
+  "audio": {
+    "original": "../data/LibriTTS/5339/5339_14134_000092_000003.wav",
+    "protected": null,
+    "synthetic": null
+  },
+  "evaluation": {
+    "reference_role": "original",
+    "target_role": "original",
+    "alignment": "strict"
+  },
+  "transform": {"name": "gaussian_noise", "seed": 42, "std": 0.005}
+}

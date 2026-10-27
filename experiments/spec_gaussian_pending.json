@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "experiment_id": "spec_10_iterations_gaussian_pending_import",
+  "audio": {
+    "original": "../runs/smoke_20261025_024217_002294/5339_14134_000092_000003.wav",
+    "protected": "../runs/smoke_20261025_024217_002294/protected.wav",
+    "synthetic": null
+  },
+  "evaluation": {
+    "reference_role": "original",
+    "target_role": "protected",
+    "alignment": "strict"
+  },
+  "transform": {"name": "gaussian_noise", "seed": 42, "std": 0.005}
+}

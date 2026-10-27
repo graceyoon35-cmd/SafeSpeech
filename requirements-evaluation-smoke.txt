@@ -1,0 +1,5 @@
+# CPU audio-pair smoke test only; does not install the training stack.
+numpy==1.26.4
+scipy==1.13.1
+soundfile==0.12.1
+pystoi==0.4.1
