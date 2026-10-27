@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "model_dir": "../checkpoints/xtts-v2",
+  "device": "cuda:0",
+  "consent_confirmed": false,
+  "cpml_accepted": false,
+  "references": {
+    "clean": "../runs/xtts_inputs/clean.wav",
+    "protected": "../runs/xtts_inputs/protected.wav"
+  },
+  "seed": 42,
+  "prompts": [
+    {"language": "ko", "text": "안녕하세요. 오늘은 음성 보호 기술을 연구합니다."},
+    {"language": "en", "text": "Hello. Today we are studying voice protection technology."}
+  ]
+}
