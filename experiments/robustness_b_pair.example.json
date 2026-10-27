@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "experiment_id": "spec_pair_robustness_example",
+  "audio": {
+    "original": "../data/LibriTTS/5339/5339_14134_000092_000003.wav",
+    "protected": "../runs/본인의_SPEC_실행폴더/protected.wav"
+  },
+  "conditions": [
+    {
+      "name": "gaussian_noise",
+      "seed": 42,
+      "std": 0.005
+    },
+    {
+      "name": "mp3",
+      "bitrate_kbps": 64
+    },
+    {
+      "name": "resample",
+      "target_hz": 16000
+    }
+  ]
+}
