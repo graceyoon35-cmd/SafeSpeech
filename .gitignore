@@ -1,0 +1,18 @@
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+
+# Downloaded checkpoints and generated perturbations
+/checkpoints/
+/runs/
+*.bert.pt
+*.noise
+/bert/**/pytorch_model*.bin
+/bert/**/model*.safetensors
+/bert/**/spm.model
+/bert_vits2/slm/wavlm-base-plus/pytorch_model.bin
+/bert_vits2/slm/wavlm-base-plus/config.json
