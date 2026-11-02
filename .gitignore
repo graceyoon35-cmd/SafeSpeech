@@ -16,3 +16,7 @@ __pycache__/
 /bert/**/spm.model
 /bert_vits2/slm/wavlm-base-plus/pytorch_model.bin
 /bert_vits2/slm/wavlm-base-plus/config.json
+   
+/data/korean/
+/data/melo_ft/
+/third_party/
