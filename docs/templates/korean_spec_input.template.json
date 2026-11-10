@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "utterances": [
+    {
+      "utterance_id": "ko_s001_u001",
+      "input_kind": "human_recording",
+      "language": "ko",
+      "speaker_id": "s001",
+      "model_speaker": "KR",
+      "split": "train",
+      "text": "실제 녹음과 대조하여 확인한 대본으로 교체하세요.",
+      "transcript_verified": false,
+      "transcript_reference": "비공개 검수 기록으로 교체",
+      "original_path": "clean/ko_s001_u001.wav",
+      "original_sha256": "생성 전에 기록한 SHA256으로 교체",
+      "sample_rate": 44100,
+      "source": "비공개 데이터 출처 기록으로 교체",
+      "research_use_permitted": false,
+      "permission_scope": "spec_and_finetuning",
+      "permission_reference": "비공개 연구 사용 허가 기록으로 교체"
+    }
+  ]
+}
