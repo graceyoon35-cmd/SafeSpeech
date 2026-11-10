@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "date": "2026-11-10",
+  "input_kind": "model_synthesized",
+  "language": "ko",
+  "independent_utterance_count": 1,
+  "sample_rate": 44100,
+  "samples": 196096,
+  "channels": 1,
+  "conditions": [
+    {
+      "name": "gaussian_noise",
+      "seed": 42,
+      "std": 0.001
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 43,
+      "std": 0.001
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 44,
+      "std": 0.001
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 42,
+      "std": 0.005
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 43,
+      "std": 0.005
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 44,
+      "std": 0.005
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 42,
+      "std": 0.01
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 43,
+      "std": 0.01
+    },
+    {
+      "name": "gaussian_noise",
+      "seed": 44,
+      "std": 0.01
+    },
+    {
+      "name": "mp3",
+      "bitrate_kbps": 32
+    },
+    {
+      "name": "mp3",
+      "bitrate_kbps": 64
+    },
+    {
+      "name": "mp3",
+      "bitrate_kbps": 128
+    },
+    {
+      "name": "resample",
+      "target_hz": 8000
+    },
+    {
+      "name": "resample",
+      "target_hz": 12000
+    },
+    {
+      "name": "resample",
+      "target_hz": 16000
+    }
+  ],
+  "cases": [
+    {
+      "spec_iterations": 1,
+      "status": "PASS",
+      "condition_count": 15,
+      "repeats": 2,
+      "wav_count": 60,
+      "mp3_count": 12,
+      "evaluation_pair_rows": 30,
+      "input_files_unchanged": true,
+      "reproducibility_pass": true,
+      "folder": "spec_1",
+      "input_clean_sha256": "ca64cfae3ff5c82c8e6080535b593bf58afc95bf191f60c6d63ff1d914d7041f",
+      "input_protected_sha256": "502f79a3cd02bc2491b62dc99e168f49d07616cdc08ebff3b482fb69d4623844",
+      "sender_untransformed_stoi": 0.9961603424775992
+    },
+    {
+      "spec_iterations": 10,
+      "status": "PASS",
+      "condition_count": 15,
+      "repeats": 2,
+      "wav_count": 60,
+      "mp3_count": 12,
+      "evaluation_pair_rows": 30,
+      "input_files_unchanged": true,
+      "reproducibility_pass": true,
+      "folder": "spec_10",
+      "input_clean_sha256": "ca64cfae3ff5c82c8e6080535b593bf58afc95bf191f60c6d63ff1d914d7041f",
+      "input_protected_sha256": "197ca74402dc425dcf614e6b6519ab677632067b8c1f297d0a161eb85065767b",
+      "sender_untransformed_stoi": 0.8757433629288034
+    }
+  ],
+  "transformed_wav_total": 120,
+  "mp3_total": 24,
+  "evaluation_pair_rows_total": 60,
+  "source_files_unchanged": true,
+  "transformed_scores": "not_measured",
+  "limitations": [
+    "Not human recordings or a finetuning dataset.",
+    "Two optimization conditions of the same one utterance.",
+    "Repeats check reproducibility, not independent observations.",
+    "No cloning defense, SIM, CER or transformed STOI evaluation."
+  ],
+  "delivery_zip_sha256": "ccd72ab4c647ae9356fffbbe8a7d644ae187cebe29c857f2b21f0428c78250a8"
+}

@@ -170,7 +170,7 @@ def export_handoff(summary_path, output_root=ROOT / 'runs'):
 
 이 폴더 전체를 내려받아 압축 해제하세요. 모든 파일 경로는 이 폴더 기준입니다.
 
-- inputs/: 실험에 사용한 원본 및 실제 SPEC 보호 음성
+- inputs/: 실험에 사용한 원본 및 보호 역할 입력 (생성 출처는 별도 보고서로 확인)
 - results/: 조건별·회차별 변환 WAV와 MP3
 - experiment.json: 변환 조건과 원본/보호 파일 경로
 - artifacts.csv: 파일별 조건·전후 Hz/길이·해시·클리핑 수
@@ -178,7 +178,8 @@ def export_handoff(summary_path, output_root=ROOT / 'runs'):
 - verification.json: 변환 및 재현성 확인 결과
 - package_manifest.json: 전달 파일의 SHA-256
 
-실제 발화는 한 쌍입니다. 같은 조건의 반복은 재현성 확인이며 독립 발화 표본이 아닙니다.
+입력은 한 쌍입니다. 파일만으로 실제 SPEC 생성 여부나 사람의 녹음 여부를 인증하지 않습니다.
+같은 조건의 반복은 재현성 확인이며 독립 발화 표본이 아닙니다.
 아직 STOI/SIM/MCD/WER를 측정하지 않았습니다. 미측정값을 0으로 기록하지 마세요.
 
 evaluation_pairs.csv는 평가할 파일을 찾는 목록입니다. 최종 reference 정책은
@@ -187,7 +188,7 @@ evaluation_pairs.csv는 평가할 파일을 찾는 목록입니다. 최종 refer
 맞춰야 합니다. 자동 잘라내기로 정렬했다고 간주하지 마세요.
 STOI가 높거나 변환이 성공했다는 사실만으로 보호 효과가 검증되지는 않습니다.
 
-공개 체크포인트의 화자 임베딩 누락 등 기존 SPEC 생성 제약은 별도로 유지됩니다.
+입력 생성 모델의 설정·제약과 출처 보고서는 별도로 확인해야 합니다.
 보고된 보호 효과 결과가 아니라 실행 가능한 비교 자료입니다.
 ''', encoding='utf-8')
     files = {path.relative_to(directory).as_posix(): sha256(path)
