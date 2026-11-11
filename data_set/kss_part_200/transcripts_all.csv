@@ -1,0 +1,201 @@
+﻿utterance_id,split,transcript,duration,wav_path
+kss_hf_00078,train,우리는 서로 답을 비교해 보았다.,3.200,train/wavs/kss_hf_00078.wav
+kss_hf_00137,train,그런 식으로 사람을 빤히 쳐다보지 마.,3.854,train/wavs/kss_hf_00137.wav
+kss_hf_00347,train,어머님이 기뻐하시겠어요.,2.599,train/wavs/kss_hf_00347.wav
+kss_hf_00631,train,아내와 영화관 앞에서 만나기로 했습니다.,3.076,train/wavs/kss_hf_00631.wav
+kss_hf_00711,train,이번 주말에 집에 내려갈 거야.,2.545,train/wavs/kss_hf_00711.wav
+kss_hf_00718,train,잘린 게 아냐. 내가 내 발로 회사에서 나간 거지.,3.824,train/wavs/kss_hf_00718.wav
+kss_hf_00792,train,엄마가 내게 돌아오라고 외쳤다.,2.496,train/wavs/kss_hf_00792.wav
+kss_hf_00882,train,그 영화는 상업적으로 크게 성공했다.,3.256,train/wavs/kss_hf_00882.wav
+kss_hf_01089,train,당신 같은 사람은 처음 봐요.,3.142,train/wavs/kss_hf_01089.wav
+kss_hf_01638,train,그는 매사에 성실하다.,3.491,train/wavs/kss_hf_01638.wav
+kss_hf_01729,train,쓸데없는 소리 좀 하지 마.,2.954,train/wavs/kss_hf_01729.wav
+kss_hf_01837,train,아기가 정말 예쁘네요.,3.350,train/wavs/kss_hf_01837.wav
+kss_hf_02066,train,그는 치밀한 사람이다.,3.350,train/wavs/kss_hf_02066.wav
+kss_hf_02127,train,상식이 풍부하시군요.,2.819,train/wavs/kss_hf_02127.wav
+kss_hf_02234,train,여기에 서명해 주세요.,2.614,train/wavs/kss_hf_02234.wav
+kss_hf_02252,train,"여보, 아기 기저귀 좀 갈아 줘.",3.431,train/wavs/kss_hf_02252.wav
+kss_hf_02309,train,눈을 감고 소원을 빌어 봐.,2.941,train/wavs/kss_hf_02309.wav
+kss_hf_02365,train,비만은 관절에 무리를 줄 수 있다.,3.636,train/wavs/kss_hf_02365.wav
+kss_hf_02549,train,따뜻한 물로 헹궈라.,2.512,train/wavs/kss_hf_02549.wav
+kss_hf_02636,train,마시기 전에 잘 흔드세요.,3.105,train/wavs/kss_hf_02636.wav
+kss_hf_02684,train,어머니는 꽃밭의 잡초를 뽑고 계세요.,3.840,train/wavs/kss_hf_02684.wav
+kss_hf_02787,train,갑자기 팩스가 작동을 멈췄어요.,3.431,train/wavs/kss_hf_02787.wav
+kss_hf_02818,train,흩어져서 계속 찾아봐라.,2.972,train/wavs/kss_hf_02818.wav
+kss_hf_02902,train,딸아이가 지금 아파서 병원에 있어요.,3.855,train/wavs/kss_hf_02902.wav
+kss_hf_03169,train,흥분하지 마.,2.229,train/wavs/kss_hf_03169.wav
+kss_hf_03193,train,기막혀서 말이 안 나오는구나.,2.972,train/wavs/kss_hf_03193.wav
+kss_hf_03380,train,도움이 되어 기쁩니다.,2.276,train/wavs/kss_hf_03380.wav
+kss_hf_03428,train,실패는 성공의 어머니다.,2.972,train/wavs/kss_hf_03428.wav
+kss_hf_03472,train,그녀는 해외 유학 계획을 단념했다.,3.808,train/wavs/kss_hf_03472.wav
+kss_hf_03693,train,그들은 소문만큼 나쁜 사람들은 아니다.,3.762,train/wavs/kss_hf_03693.wav
+kss_hf_03746,train,요즘에는 버릇없는 애들이 많아요.,3.390,train/wavs/kss_hf_03746.wav
+kss_hf_03770,train,제가 젓가락질이 좀 서툴러요.,3.204,train/wavs/kss_hf_03770.wav
+kss_hf_04087,train,어제 산 이 티셔츠를 교환하고 싶은데요.,3.576,train/wavs/kss_hf_04087.wav
+kss_hf_04094,train,더우면 소매를 걷어.,2.740,train/wavs/kss_hf_04094.wav
+kss_hf_04108,train,신발 사이즈가 어떻게 되세요?,2.833,train/wavs/kss_hf_04108.wav
+kss_hf_04134,train,대량으로 구매하시면 할인해 드립니다.,3.297,train/wavs/kss_hf_04134.wav
+kss_hf_04219,train,배에서 자꾸 꼬르륵 소리가 나요.,3.158,train/wavs/kss_hf_04219.wav
+kss_hf_04254,train,커피 한 잔,2.183,train/wavs/kss_hf_04254.wav
+kss_hf_04288,train,새로 생긴 술집에 가 보자.,2.926,train/wavs/kss_hf_04288.wav
+kss_hf_04421,train,블라인드 좀 내려도 될까요?,3.901,train/wavs/kss_hf_04421.wav
+kss_hf_04477,train,이제 나도 아내가 필요하다.,3.483,train/wavs/kss_hf_04477.wav
+kss_hf_04496,train,이모가 졸업 선물로 시계를 주셨다.,3.994,train/wavs/kss_hf_04496.wav
+kss_hf_04511,train,언제 데리러 갈까?,2.043,train/wavs/kss_hf_04511.wav
+kss_hf_04516,train,상대방이 어떻게 느낄지 생각해 봐.,3.994,train/wavs/kss_hf_04516.wav
+kss_hf_04560,train,우리는 7년 연애 끝에 헤어졌다.,3.437,train/wavs/kss_hf_04560.wav
+kss_hf_04566,train,저는 혼전 성관계를 반대합니다.,3.715,train/wavs/kss_hf_04566.wav
+kss_hf_04634,train,한 학기 휴학 중이에요.,2.647,train/wavs/kss_hf_04634.wav
+kss_hf_04666,train,그 다음 장 예습해 오세요.,3.344,train/wavs/kss_hf_04666.wav
+kss_hf_04671,train,한국에는 학원이 많은 것 같아요.,3.111,train/wavs/kss_hf_04671.wav
+kss_hf_04852,train,서두를 필요 없어. 아직 여유 있어.,3.855,train/wavs/kss_hf_04852.wav
+kss_hf_04950,train,여권 좀 보여 주시겠습니까?,2.972,train/wavs/kss_hf_04950.wav
+kss_hf_05026,train,"내용뿐 아니라, 형식도 중요해.",3.622,train/wavs/kss_hf_05026.wav
+kss_hf_05272,train,당신을 체포합니다.,2.972,train/wavs/kss_hf_05272.wav
+kss_hf_05275,train,그녀는 불륜 현장에서 붙잡혔다.,3.715,train/wavs/kss_hf_05275.wav
+kss_hf_05452,train,프로젝트는 순조롭게 진행되고 있다.,3.297,train/wavs/kss_hf_05452.wav
+kss_hf_05613,train,다음 주에 매매 계약을 체결할 예정입니다.,3.947,train/wavs/kss_hf_05613.wav
+kss_hf_05716,train,내 개인 사업을 시작할까 생각 중이야.,3.622,train/wavs/kss_hf_05716.wav
+kss_hf_05770,train,전화벨이 시끄럽게 울렸다.,3.065,train/wavs/kss_hf_05770.wav
+kss_hf_05809,train,청취해 주셔서 감사 드립니다.,3.529,train/wavs/kss_hf_05809.wav
+kss_hf_06115,train,한낮에는 무더웠는데 지금은 시원해.,3.646,train/wavs/kss_hf_06115.wav
+kss_hf_06205,train,이달 말에 겨울 휴가를 갈 거야.,3.065,train/wavs/kss_hf_06205.wav
+kss_hf_06425,train,시간이 참 쏜살같군요.,2.879,train/wavs/kss_hf_06425.wav
+kss_hf_06460,train,내 생각에는 위아래가 뒤바뀐 것 같아.,3.947,train/wavs/kss_hf_06460.wav
+kss_hf_06487,train,어느 쪽이 남쪽이야?,2.601,train/wavs/kss_hf_06487.wav
+kss_hf_06512,train,문장 구조가 좀 이상해.,3.065,train/wavs/kss_hf_06512.wav
+kss_hf_06559,train,밤에는 환한 색 옷을 입는 게 안전합니다.,3.994,train/wavs/kss_hf_06559.wav
+kss_hf_06619,train,슈퍼가 우리 집에서 가까운 곳에 있어.,3.344,train/wavs/kss_hf_06619.wav
+kss_hf_06686,train,시험까지 일주일 남았다.,2.601,train/wavs/kss_hf_06686.wav
+kss_hf_06794,train,오늘은 어제보다 덜 더운 것 같아요.,3.483,train/wavs/kss_hf_06794.wav
+kss_hf_06881,train,1등과 2등은 하늘과 땅 차이예요.,3.762,train/wavs/kss_hf_06881.wav
+kss_hf_06885,train,지갑은 침대 옆 탁자 위에 있어요.,3.111,train/wavs/kss_hf_06885.wav
+kss_hf_06893,train,생물 시험이 아주 어려웠어요.,3.065,train/wavs/kss_hf_06893.wav
+kss_hf_06967,train,그 돈을 친구에게 주었어요.,3.019,train/wavs/kss_hf_06967.wav
+kss_hf_06986,train,나도 밖에서 놀고 싶어요.,2.879,train/wavs/kss_hf_06986.wav
+kss_hf_07040,train,너희 둘이 사귀는 줄 몰랐어.,2.554,train/wavs/kss_hf_07040.wav
+kss_hf_07093,train,저는 담배 없이는 하루도 못 삽니다.,3.297,train/wavs/kss_hf_07093.wav
+kss_hf_07116,train,나는 차라리 집에서 숙제나 할래.,3.344,train/wavs/kss_hf_07116.wav
+kss_hf_07250,train,아이가 잘못을 하면 주로 어떻게 하세요?,3.762,train/wavs/kss_hf_07250.wav
+kss_hf_07304,train,그건 네가 걱정할 일이 아니다.,2.694,train/wavs/kss_hf_07304.wav
+kss_hf_07307,train,안전벨트 매는 법 좀 가르쳐 주시겠어요?,3.855,train/wavs/kss_hf_07307.wav
+kss_hf_07448,train,똑같은 실수를 반복하지 마라.,3.390,train/wavs/kss_hf_07448.wav
+kss_hf_07459,train,외국어를 잘하는 좋은 방법을 아세요?,3.715,train/wavs/kss_hf_07459.wav
+kss_hf_07587,train,아이들이 비만이 되는 이유가 뭔가요?,3.088,train/wavs/kss_hf_07587.wav
+kss_hf_07610,train,휴지통은 비웠어?,2.322,train/wavs/kss_hf_07610.wav
+kss_hf_07661,train,지하철 5호선은 보라색이에요.,3.204,train/wavs/kss_hf_07661.wav
+kss_hf_07780,train,어쩌다 그런 별명을 갖게 되셨어요?,3.669,train/wavs/kss_hf_07780.wav
+kss_hf_07806,train,자리가 다 찼어요.,2.229,train/wavs/kss_hf_07806.wav
+kss_hf_07811,train,제가 개인적으로 책임지겠습니다.,3.622,train/wavs/kss_hf_07811.wav
+kss_hf_07849,train,창가에 앉아 창밖을 내다봐라.,3.855,train/wavs/kss_hf_07849.wav
+kss_hf_07899,train,마음은 아직 청춘이에요.,2.972,train/wavs/kss_hf_07899.wav
+kss_hf_08056,train,대체로 재미있었어.,3.135,train/wavs/kss_hf_08056.wav
+kss_hf_08279,train,일기예보가 아무래도 틀린 듯하다.,3.622,train/wavs/kss_hf_08279.wav
+kss_hf_08470,train,"엄마, 오늘 저녁은 뭐예요?",3.204,train/wavs/kss_hf_08470.wav
+kss_hf_08814,train,그 사람이 길을 건너왔다.,2.972,train/wavs/kss_hf_08814.wav
+kss_hf_09148,train,직장 구하셨어요?,2.368,train/wavs/kss_hf_09148.wav
+kss_hf_09175,train,국물이 옷에 튀었어요.,3.065,train/wavs/kss_hf_09175.wav
+kss_hf_09234,train,나 좀 귀찮게 하지 마. 나 지금 바빠.,3.204,train/wavs/kss_hf_09234.wav
+kss_hf_09369,train,갈등 해소에 대화만 한 게 없어요.,3.695,train/wavs/kss_hf_09369.wav
+kss_hf_09475,train,커피를 흘려서 죄송합니다.,2.507,train/wavs/kss_hf_09475.wav
+kss_hf_09493,train,밤새웠더니 몸에 힘이 하나도 없어요.,3.794,train/wavs/kss_hf_09493.wav
+kss_hf_09720,train,저는 일식이 별로예요.,2.573,train/wavs/kss_hf_09720.wav
+kss_hf_09894,train,작은딸은 아직 시집을 안 갔어요.,3.167,train/wavs/kss_hf_09894.wav
+kss_hf_10008,train,일 좀 제대로 해!,2.177,train/wavs/kss_hf_10008.wav
+kss_hf_10151,train,이 일을 하려면 전문적인 기술이 필요해요.,3.808,train/wavs/kss_hf_10151.wav
+kss_hf_10158,train,한국의 전통 놀이에는 뭐가 있어요?,3.483,train/wavs/kss_hf_10158.wav
+kss_hf_10213,train,셔츠는 바지 안으로 집어넣으세요.,3.065,train/wavs/kss_hf_10213.wav
+kss_hf_10313,train,지식을 넓히는 데 독서만큼 좋은 것은 없다.,3.808,train/wavs/kss_hf_10313.wav
+kss_hf_10390,train,각 학생들은 종이 한 장을 받게 될 겁니다.,3.622,train/wavs/kss_hf_10390.wav
+kss_hf_10484,train,인천은 무역의 중심지예요.,2.926,train/wavs/kss_hf_10484.wav
+kss_hf_10508,train,카드 되나요?,2.415,train/wavs/kss_hf_10508.wav
+kss_hf_10670,train,코피가 계속 나서 멎질 않아요.,3.483,train/wavs/kss_hf_10670.wav
+kss_hf_10702,train,저는 매일 일기를 써요.,2.647,train/wavs/kss_hf_10702.wav
+kss_hf_10704,train,매주 월요일은 정기 휴일입니다.,3.529,train/wavs/kss_hf_10704.wav
+kss_hf_10879,train,내가 그 말을 믿을 거라고 생각해요?,2.926,train/wavs/kss_hf_10879.wav
+kss_hf_10914,train,내 몸에서 손 떼.,2.461,train/wavs/kss_hf_10914.wav
+kss_hf_11187,train,이 자료들을 뒤로 넘기세요.,2.833,train/wavs/kss_hf_11187.wav
+kss_hf_11200,train,그 사람은 나이보다 늙어 보여요.,3.390,train/wavs/kss_hf_11200.wav
+kss_hf_11267,train,어제 퇴근 후에 아내랑 노래방에 갔어요.,3.297,train/wavs/kss_hf_11267.wav
+kss_hf_11268,train,노란색 펜이 필요해요.,2.508,train/wavs/kss_hf_11268.wav
+kss_hf_11608,train,오늘 저녁은 제가 살게요.,2.926,train/wavs/kss_hf_11608.wav
+kss_hf_11660,train,제가 외출한 사이에 전화 온 데 있어요?,3.437,train/wavs/kss_hf_11660.wav
+kss_hf_11671,train,저희 사진 좀 찍어 주시겠어요?,3.065,train/wavs/kss_hf_11671.wav
+kss_hf_11855,train,그 여자는 서양인의 눈을 갖고 있어요.,3.947,train/wavs/kss_hf_11855.wav
+kss_hf_11942,train,모두 오셨으니 시작하겠습니다.,3.344,train/wavs/kss_hf_11942.wav
+kss_hf_11945,train,그거 시장에서 샀니?,2.601,train/wavs/kss_hf_11945.wav
+kss_hf_11988,train,나는 저런 타입의 남자는 싫어.,3.529,train/wavs/kss_hf_11988.wav
+kss_hf_11999,train,심심해 죽겠어요.,2.879,train/wavs/kss_hf_11999.wav
+kss_hf_12040,train,저는 신문사에서 일하고 있어요.,2.926,train/wavs/kss_hf_12040.wav
+kss_hf_12146,train,우리는 소수의 의견을 존중해야 합니다.,3.715,train/wavs/kss_hf_12146.wav
+kss_hf_12274,train,저는 매주 수요일 저녁에 수업이 있어요.,3.762,train/wavs/kss_hf_12274.wav
+kss_hf_12316,train,책이 찢어졌어. 테이프 있어?,3.622,train/wavs/kss_hf_12316.wav
+kss_hf_12347,train,선풍기 좀 틀어 줘.,2.601,train/wavs/kss_hf_12347.wav
+kss_hf_12349,train,"이런, 가사가 틀렸어요!",2.926,train/wavs/kss_hf_12349.wav
+kss_hf_12366,train,안 쓰는 물건 담아 놓을 통 좀 가져와 봐.,3.437,train/wavs/kss_hf_12366.wav
+kss_hf_12448,train,커피 가격이 또 올랐어요.,2.786,train/wavs/kss_hf_12448.wav
+kss_hf_12499,train,이 표시는 무슨 의미예요?,3.158,train/wavs/kss_hf_12499.wav
+kss_hf_12550,train,우유 한 잔 주세요.,2.322,train/wavs/kss_hf_12550.wav
+kss_hf_12600,train,원숭이도 나무에서 떨어질 때가 있다.,3.901,train/wavs/kss_hf_12600.wav
+kss_hf_12755,train,좀 더 연한 색깔 없어요?,2.740,train/wavs/kss_hf_12755.wav
+kss_hf_12771,train,옆쪽으로 좀 가 주세요.,2.508,train/wavs/kss_hf_12771.wav
+kss_hf_00029,validation,그 차는 들판에 버려진 채 발견됐다.,3.360,validation/wavs/kss_hf_00029.wav
+kss_hf_00196,validation,어느 학교에 다녔어요?,2.202,validation/wavs/kss_hf_00196.wav
+kss_hf_01275,validation,개나리가 모두 노란 건 아냐.,3.476,validation/wavs/kss_hf_01275.wav
+kss_hf_01588,validation,저는 밥을 빨리 먹어요.,2.874,validation/wavs/kss_hf_01588.wav
+kss_hf_01711,validation,기침이 심하고 열이 나요.,2.901,validation/wavs/kss_hf_01711.wav
+kss_hf_01836,validation,왜 그렇게 예쁘게 차려입은 거야?,3.105,validation/wavs/kss_hf_01836.wav
+kss_hf_02674,validation,이 책을 맨 위 책꽂이에 꽂아 두어라.,3.105,validation/wavs/kss_hf_02674.wav
+kss_hf_02735,validation,왜 길에 침을 뱉어?,2.369,validation/wavs/kss_hf_02735.wav
+kss_hf_03291,validation,또 그럴듯한 핑계를 생각해 냈구나.,3.669,validation/wavs/kss_hf_03291.wav
+kss_hf_04078,validation,아이에게 가벼운 옷을 입히세요.,3.251,validation/wavs/kss_hf_04078.wav
+kss_hf_05034,validation,이거 뭘로 그린 거니?,2.229,validation/wavs/kss_hf_05034.wav
+kss_hf_05541,validation,추수하기 참 좋은 날씨야.,3.204,validation/wavs/kss_hf_05541.wav
+kss_hf_05712,validation,환율이 급격히 떨어졌다.,2.740,validation/wavs/kss_hf_05712.wav
+kss_hf_07521,validation,이 청바지는 한 벌에 8만 원이에요.,3.297,validation/wavs/kss_hf_07521.wav
+kss_hf_07631,validation,신분증 좀 보여 주세요.,2.694,validation/wavs/kss_hf_07631.wav
+kss_hf_07718,validation,그 일이 성공할지는 불확실합니다.,3.901,validation/wavs/kss_hf_07718.wav
+kss_hf_08344,validation,어제 대학 동기 모임에 갔었어요.,2.833,validation/wavs/kss_hf_08344.wav
+kss_hf_08680,validation,뱀이 먹이를 몸으로 감았다.,3.460,validation/wavs/kss_hf_08680.wav
+kss_hf_09870,validation,매일 몸무게를 재고 기록해 두세요.,2.969,validation/wavs/kss_hf_09870.wav
+kss_hf_10058,validation,아직 절망하기에는 일러요.,3.158,validation/wavs/kss_hf_10058.wav
+kss_hf_10066,validation,이번 영어 시험에서 몇 점 받았어?,3.297,validation/wavs/kss_hf_10066.wav
+kss_hf_10155,validation,현재는 전쟁 사진들이 전시 중입니다.,3.483,validation/wavs/kss_hf_10155.wav
+kss_hf_10375,validation,회사 조직에 변화가 있을 거예요.,2.694,validation/wavs/kss_hf_10375.wav
+kss_hf_10930,validation,저는 부모님을 모시고 살아요.,3.111,validation/wavs/kss_hf_10930.wav
+kss_hf_11093,validation,밖에 나가기 전에 따뜻하게 입어라.,3.669,validation/wavs/kss_hf_11093.wav
+kss_hf_11926,validation,첫 번째 시도치고 나쁘지 않았어요.,3.715,validation/wavs/kss_hf_11926.wav
+kss_hf_12100,validation,아직 솔로예요?,2.136,validation/wavs/kss_hf_12100.wav
+kss_hf_12432,validation,저는 자다가 침대에서 잘 떨어져요.,3.808,validation/wavs/kss_hf_12432.wav
+kss_hf_12615,validation,우리 팀은 수비가 약해요.,2.833,validation/wavs/kss_hf_12615.wav
+kss_hf_12789,validation,오늘 여왕 같은데요.,2.461,validation/wavs/kss_hf_12789.wav
+kss_hf_00088,test,지난번에 뵌 후 오랜만에 뵙습니다.,3.145,test/wavs/kss_hf_00088.wav
+kss_hf_00434,test,만화책 읽는 거 좋아하세요?,2.717,test/wavs/kss_hf_00434.wav
+kss_hf_00581,test,조금만 깎아 주세요.,2.469,test/wavs/kss_hf_00581.wav
+kss_hf_00632,test,너를 여기서 만나다니 정말 세상 좁구나!,3.462,test/wavs/kss_hf_00632.wav
+kss_hf_01284,test,제 시계는 5분 느리게 가요.,2.956,test/wavs/kss_hf_01284.wav
+kss_hf_02680,test,발에 유리 조각이 박혔어요.,3.309,test/wavs/kss_hf_02680.wav
+kss_hf_02841,test,그는 뒷문으로 살짝 빠져나갔다.,3.437,test/wavs/kss_hf_02841.wav
+kss_hf_03111,test,오늘 왜 그리 우울해 보여?,3.437,test/wavs/kss_hf_03111.wav
+kss_hf_03231,test,고정관념을 깨라.,2.926,test/wavs/kss_hf_03231.wav
+kss_hf_03918,test,부모님께 결혼 승낙은 받았어?,3.437,test/wavs/kss_hf_03918.wav
+kss_hf_04258,test,맥주 한 병,2.136,test/wavs/kss_hf_04258.wav
+kss_hf_06943,test,장난이 지나치시네요.,2.368,test/wavs/kss_hf_06943.wav
+kss_hf_07370,test,어제부터 배가 몹시 아파요.,3.204,test/wavs/kss_hf_07370.wav
+kss_hf_07373,test,배불러서 더는 못 먹겠어.,3.622,test/wavs/kss_hf_07373.wav
+kss_hf_07929,test,저는 몸무게가 70킬로예요.,3.065,test/wavs/kss_hf_07929.wav
+kss_hf_08264,test,부탁 좀 들어주시겠어요?,2.833,test/wavs/kss_hf_08264.wav
+kss_hf_08332,test,그 사람은 아직 도망 다니고 있다.,3.762,test/wavs/kss_hf_08332.wav
+kss_hf_08983,test,어머니는 3주 만에 기적처럼 깨어나셨어요.,3.947,test/wavs/kss_hf_08983.wav
+kss_hf_09344,test,해변을 따라 걸을까요?,2.507,test/wavs/kss_hf_09344.wav
+kss_hf_09588,test,202호실 환자 언제 퇴원해요?,3.530,test/wavs/kss_hf_09588.wav
+kss_hf_09826,test,세일은 1월 15일까지입니다.,3.035,test/wavs/kss_hf_09826.wav
+kss_hf_09891,test,작업한 거 저장하는 거 잊지 마.,3.365,test/wavs/kss_hf_09891.wav
+kss_hf_09944,test,지난 시간에 몇 장까지 했었죠?,2.969,test/wavs/kss_hf_09944.wav
+kss_hf_10275,test,저는 잘 지내고 있어요.,2.647,test/wavs/kss_hf_10275.wav
+kss_hf_11024,test,명단에 제 이름이 빠져 있어요.,2.694,test/wavs/kss_hf_11024.wav
+kss_hf_11064,test,창밖을 내다보지 마.,2.415,test/wavs/kss_hf_11064.wav
+kss_hf_11302,test,저는 2남 1녀 중 막내예요.,3.111,test/wavs/kss_hf_11302.wav
+kss_hf_12259,test,조심해. 이 숲에는 뱀이 있어.,3.947,test/wavs/kss_hf_12259.wav
+kss_hf_12431,test,좋은 생각이 떠올랐다.,3.390,test/wavs/kss_hf_12431.wav
+kss_hf_12842,test,마라톤은 육상의 꽃이다.,3.019,test/wavs/kss_hf_12842.wav
