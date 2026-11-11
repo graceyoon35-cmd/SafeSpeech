@@ -7,14 +7,16 @@
 
 | 위치 | 내용 |
 |---|---|
-| `kss_part_200/` | KSS Dataset에서 고른 200발화의 대본, manifest, 분할 목록, 입력 JSON. **WAV는 들어 있지 않음** |
+| `kss_part_200/` | KSS Dataset에서 고른 200발화의 WAV, 대본, manifest, 분할 목록, 입력 JSON |
 | `tools/build_kss_manifest.py` | 발화를 고르고 manifest, 분할, 검증을 만드는 도구 (표준 라이브러리만 사용) |
 | `tools/hf_parquet_to_kss_layout.py` | Hugging Face 사본(parquet)을 KSS 원본과 비슷한 폴더로 푸는 도구 (pyarrow 필요) |
 
-## WAV는 어디에 있나
+## WAV 위치
 
-WAV 200개(약 58MB)는 GitHub에 올리지 않았습니다. 팀 Google Drive의 "We-Meet 데이터 처리" 폴더 안 `KSS_부분데이터_200발화`에 zip 조각으로 있습니다. 팀 규칙이 원본 음성을 공개 저장소에 올리지 않는 것이기 때문입니다.
-zip을 풀면 `kss_part_200/train/wavs/`, `validation/wavs/`, `test/wavs/` 위치가 되고, `manifest.csv`의 `wav_path`와 `sha256`이 그 파일들과 맞습니다.
+WAV 200개(약 58MB)는 `kss_part_200/train/wavs/`(140개), `validation/wavs/`(30개), `test/wavs/`(30개)에 있습니다. 파일 이름은 발화 ID이고, `manifest.csv`의 `wav_path`와 `sha256`이 이 파일들과 맞습니다.
+같은 파일이 팀 Google Drive의 "We-Meet 데이터 처리" 폴더 안 `KSS_부분데이터_200발화`에도 zip 조각으로 있습니다.
+
+이 저장소는 공개 저장소라서 WAV를 올리면 기록에 남아 되돌릴 수 없습니다. KSS의 라이선스(CC BY-NC-SA 4.0)가 출처 표시와 같은 조건 공유를 지키면 재배포를 허용하므로 올렸습니다. 이 음성을 쓰거나 다시 공유할 때는 아래 인용과 라이선스를 함께 적어야 하고, 상업 목적으로는 쓸 수 없습니다.
 
 ## 데이터 출처와 이용 조건
 
