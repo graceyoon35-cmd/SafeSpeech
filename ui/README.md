@@ -7,7 +7,7 @@ PySide6로 만든 Voice Protect 앱입니다. SafeSpeech 모델 코드와 독립
 저장소 루트에서 다음 명령을 실행합니다.
 
 ```powershell
-cd desktop_ui
+cd ui
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe main.py
