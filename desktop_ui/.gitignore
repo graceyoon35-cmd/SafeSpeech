@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+*.log
+previews/
+tmp*/
+*.wav
+*.mp3
+*.mp4
+*_protected.*

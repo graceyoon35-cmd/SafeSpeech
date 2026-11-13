@@ -1,0 +1,23 @@
+QWidget { color: #344054; font-family: "__APP_FONT_FAMILY__"; }
+QStackedWidget { border: none; background: #eef7f7; }
+QFrame[role="surfaceContent"] { background: transparent; border: none; }
+QFrame[role="glass"] { background: rgba(255,255,255,143); border: 1px solid rgba(255,255,255,224); border-radius: 24px; }
+QFrame[role="glass"][main="true"] { background: rgba(255,255,255,148); border-color: rgba(255,255,255,235); }
+QFrame[role="card"] { background: rgba(255,255,255,184); border: 1px solid rgba(255,255,255,230); border-radius: 18px; }
+QFrame[role="header"] { background: rgba(255,255,255,71); border: none; border-top-left-radius: 23px; border-top-right-radius: 23px; }
+QFrame[role="row"] { background: rgba(255,255,255,97); border: none; border-radius: 12px; }
+QFrame[role="audio"] { background: rgba(255,255,255,107); border: none; border-radius: 12px; }
+QFrame[role="metric"] { background: rgba(255,255,255,92); border: none; border-radius: 11px; }
+QPushButton { font-size: 12px; font-weight: 500; border: none; }
+QPushButton[role="secondary"], QPushButton[role="uploadPicker"] { color: #28364a; background: rgba(255,255,255,199); border: 1px solid rgba(220,229,242,230); border-radius: 18px; }
+QPushButton[role="uploadPicker"] { font-size: 11px; border-radius: 14px; }
+QPushButton[role="start"], QPushButton[role="primary"] { color: white; background: #111827; border-radius: 19px; font-size: 11px; }
+QPushButton[role="start"] { border-radius: 23px; font-size: 13px; }
+QPushButton[role="start"]:hover, QPushButton[role="primary"]:hover { background: #253246; }
+QPushButton[role="secondary"]:hover, QPushButton[role="uploadPicker"]:hover { background: white; }
+QPushButton:focus-visible { border: 2px solid #7d8eff; }
+QPushButton[role="remove"] { color: #8491a4; background: transparent; font-size: 15px; }
+QPushButton[role="play"] { color: #5066d8; background: rgba(255,255,255,209); border-radius: 9px; font-size: 10px; }
+QPushButton[role="drop"] { color: #344054; background: rgba(255,255,255,92); border: 1px dashed rgba(216,227,241,242); border-radius: 14px; }
+QProgressBar { background: rgba(230,235,242,230); border: none; border-radius: 4px; }
+QProgressBar::chunk { background: #7d8eff; border-radius: 4px; }
