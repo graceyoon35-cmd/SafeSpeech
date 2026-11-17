@@ -42,3 +42,21 @@ STOI/SIM/MCD/WER 또는 보호 성능 점수는 계산하지 않습니다.
 전체 폴더를 내려받으면 파일을 찾을 수 있습니다. 개별 보고서에는 생성 당시 절대 경로도 있습니다.
 표에는 측정하지 않은 점수를 0으로 기입하지 않습니다.
 여러 발화의 실제 SPEC 쌍이 마련되면 별도 발화 ID를 부여해 실험을 확대합니다.
+
+## 여러 원본·보호 음성 쌍을 한 번에 실행
+
+기존 pair manifest를 발화·보호 조건별로 하나씩 준비합니다. `experiment_id`에는 발화 ID와
+SPEC 조건을 넣어 서로 구별하고, 모든 manifest에 같은 순서의 변환 조건을 지정합니다.
+오디오 경로는 각 manifest 기준입니다.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/run_robustness_batch_b.py experiments/utterance_01.local.json experiments/utterance_02.local.json --repeats 2
+```
+
+새 `runs/robustness_batch_b_*` 폴더에 쌍별 요약과 합본 `artifacts.csv`가 생깁니다. 합본 CSV의
+파일 경로는 이 폴더 기준입니다. `summary.json`에는 입력 쌍 수와 원본 파일의 고유 SHA-256
+수, WAV·MP3 수가 들어갑니다. 같은 원본의 SPEC 1회·10회는 두 쌍과 하나의 원본으로 집계됩니다.
+원본 해시 수는 파일 기준이므로 독립 발화 수를 해석할 때 실제 발화 ID를 사용합니다.
+
+처리 중 실패하면 `summary.json`의 상태가 `FAIL`이며 이미 끝난 쌍의 목록과 파일은 남습니다.
+평가에 전달할 때는 성공한 쌍의 요약 경로를 기존 전달 ZIP 생성기에 지정합니다.
