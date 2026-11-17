@@ -1,0 +1,25 @@
+{
+  "status": "SYNTHETIC_BOUNDED_SMOKE_VERIFIED_HUMAN_TRAINING_PENDING",
+  "conditions": ["clean", "SPEC_1", "SPEC_10"],
+  "required_before_human_training": [
+    "Documented permission for SPEC and clean/protected voice-cloning finetuning",
+    "Per-utterance listening review",
+    "Same immutable utterance IDs, transcripts and 140/30/30 train/validation/test splits",
+    "Pinned initialization and strict checkpoint compatibility",
+    "Korean frontend and BERT feature generation verified"
+  ],
+  "proposed_common_settings": {
+    "seed": 52,
+    "batch_size": 1,
+    "fp16_run": false,
+    "precision": "bf16",
+    "segment_size": 8192,
+    "sample_rate": 44100,
+    "num_workers": 0,
+    "gpus": 1,
+    "smoke_optimizer_steps": 3
+  },
+  "not_yet_established": ["KSS full-run peak VRAM", "Official train.py full environment", "Training steps for final experiment"],
+  "split_warning": "Official preprocess_text.py shuffles and re-splits. Restore fixed lists by utterance ID and verify no test leakage before launching training.",
+  "outputs_required": ["metadata.list per split", "cleaned 7-column lists and BERT tensors", "config.json per condition", "identical optimizer and training step budget", "held-out synthesis metadata.csv", "actual SIM/CER results"]
+}

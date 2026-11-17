@@ -4,6 +4,7 @@ import copy
 import csv
 import json
 import math
+import os
 from pathlib import Path
 import re
 import shutil
@@ -37,16 +38,31 @@ def save(path, data):
 
 
 def git(*args, cwd=ROOT):
-    return subprocess.check_output(['git', '-C', str(cwd), *args])
+    # Windows-created worktrees store a Windows absolute gitdir. WSL Git needs
+    # the mounted path, scoped to this command (asset repositories stay native).
+    env = os.environ.copy()
+    pointer = Path(cwd) / '.git'
+    if os.name == 'posix' and pointer.is_file():
+        value = pointer.read_text(encoding='utf-8').strip()
+        if re.match(r'^gitdir: [A-Za-z]:[/\\]', value):
+            directory = subprocess.check_output(
+                ['wslpath', '-u', value[len('gitdir: '):]], text=True).strip()
+            env.update(GIT_DIR=directory, GIT_WORK_TREE=str(Path(cwd).resolve()))
+    return subprocess.check_output(['git', '-C', str(cwd), *args], env=env)
 
 
-def check_manifest(path, *, allow_nonhuman=False):
+def check_manifest(path, *, allow_nonhuman=False, allow_licensed_research=False):
     """Checks declarations, not independent consent or transcript recognition."""
     path = Path(path).resolve()
     before = sha256(path)
     data = json.loads(path.read_text(encoding='utf-8'))
     if data.get('schema_version') != 1 or not data.get('utterances'):
         raise ValueError('Require schema_version=1 and nonempty utterances')
+    licensed=False
+    if allow_licensed_research:
+        from kss_research_policy import validate_policy
+        validate_policy(data)
+        licensed=True
     ids, sources, result = set(), set(), []
     for row in data['utterances']:
         row = copy.deepcopy(row)
@@ -66,14 +82,14 @@ def check_manifest(path, *, allow_nonhuman=False):
         text = row.get('text')
         if not isinstance(text, str) or not re.search('[가-힣]', text) or any(c in text for c in '|\r\n'):
             raise ValueError('Require Korean transcript without metadata separators')
-        if row.get('transcript_verified') is not True:
+        if row.get('transcript_verified') is not True and not licensed:
             raise ValueError('Require reviewed transcript declaration')
         kind = row.get('input_kind')
         if kind not in ('human_recording', 'model_synthesized', 'mock'):
             raise ValueError('Explicit input_kind required')
         if kind != 'human_recording' and not allow_nonhuman:
             raise ValueError('Nonhuman input requires explicit --allow-nonhuman')
-        if row.get('research_use_permitted') is not True:
+        if row.get('research_use_permitted') is not True and not licensed:
             raise ValueError('Research use permission declaration required')
         if kind == 'human_recording' and row.get('permission_scope') != 'spec_and_finetuning':
             raise ValueError('Permission must cover SPEC and clean/protected finetuning')
@@ -255,14 +271,14 @@ def load_backend(assets, config, folder, device):
     return generate
 
 
-def execute(manifest, assets, *, seed=52, epsilon=8., iterations=(1, 10), device='cpu', allow_nonhuman=False):
+def execute(manifest, assets, *, seed=52, epsilon=8., iterations=(1, 10), device='cpu', allow_nonhuman=False, allow_licensed_research=False):
     if type(seed) is not int or not 0 <= seed < 2**32:
         raise ValueError('Invalid seed')
     if not math.isfinite(epsilon) or not 0 < epsilon <= 255:
         raise ValueError('Invalid epsilon in /255 units')
     if not iterations or len(set(iterations)) != len(iterations) or any(type(i) is not int or not 1 <= i <= 200 for i in iterations):
         raise ValueError('Iterations must be unique integers in 1..200')
-    rows = check_manifest(manifest, allow_nonhuman=allow_nonhuman)
+    rows = check_manifest(manifest, allow_nonhuman=allow_nonhuman,allow_licensed_research=allow_licensed_research)
     manifest_hash = sha256(manifest)
     assets, config, hashes = check_assets(assets)
     runs = ROOT/'runs'
@@ -275,8 +291,13 @@ def execute(manifest, assets, *, seed=52, epsilon=8., iterations=(1, 10), device
               'iterations': list(iterations), 'device': device, 'input_manifest_sha256': manifest_hash,
               'runner_sha256': sha256(Path(__file__)), 'project_head': git('rev-parse', 'HEAD').decode().strip(),
               'limitations': 'STOI is intelligibility, not cloning defense. Transcript/permission are declarations.'}
+    report.update(validation_policy='licensed_noncommercial_kss_research_v1' if allow_licensed_research else 'strict_declarations',
+        manual_listening_verified_count=sum(r['transcript_verified'] is True for r in rows),
+        separate_speaker_consent='not_verified' if allow_licensed_research else 'not_independently_verified')
     try:
-        save(folder/'input_manifest.json', {'schema_version': 1, 'utterances': rows})
+        snapshot=json.loads(Path(manifest).read_text(encoding='utf-8'))
+        snapshot['utterances']=rows
+        save(folder/'input_manifest.json', snapshot)
         save(folder/'effective_config.json', config)
         generate = load_backend(assets, config, folder, device)
         handoff = []
@@ -304,6 +325,8 @@ def execute(manifest, assets, *, seed=52, epsilon=8., iterations=(1, 10), device
                 score = evaluate_validation(case/'validation.json')
                 score['source_input_kind'] = row['input_kind']
                 save(case/'stoi.json', score)
+                print(json.dumps({'progress':len(handoff)+1,'total':len(rows)*len(iterations),
+                    'utterance_id':row['utterance_id'],'iterations':count,'stoi':score['stoi']}),flush=True)
                 identity = {k: row[k] for k in ('split', 'text', 'speaker_id')}
                 handoff.append({**row, 'clean_path': str(original), 'clean_sha256': sha256(original),
                     'protected_path': str(output), 'protected_sha256': sha256(output),
@@ -317,6 +340,8 @@ def execute(manifest, assets, *, seed=52, epsilon=8., iterations=(1, 10), device
             if sha256(assets/name) != expected:
                 raise RuntimeError('Model/config changed during run')
         check_assets(assets)
+        if allow_licensed_research:
+            check_manifest(manifest,allow_licensed_research=True)
         for name, expected in json.loads((folder/'backend.json').read_text())['team_source_sha256'].items():
             if sha256(folder/'team'/'melo_kr'/name) != expected:
                 raise RuntimeError('Team code changed during run')
@@ -346,6 +371,7 @@ def main():
     p.add_argument('--assets', type=Path)
     p.add_argument('--validate-only', action='store_true')
     p.add_argument('--allow-nonhuman', action='store_true')
+    p.add_argument('--allow-licensed-research',action='store_true')
     p.add_argument('--seed', type=int, default=52)
     p.add_argument('--epsilon', type=float, default=8.)
     p.add_argument('--iterations', type=int, nargs='+', default=[1, 10])
@@ -353,7 +379,7 @@ def main():
     args = p.parse_args()
     try:
         if args.validate_only:
-            rows = check_manifest(args.manifest, allow_nonhuman=args.allow_nonhuman)
+            rows = check_manifest(args.manifest, allow_nonhuman=args.allow_nonhuman,allow_licensed_research=args.allow_licensed_research)
             print(json.dumps({'status': 'INPUT_CONTRACT_PASS', 'count': len(rows),
                               'kinds': sorted({r['input_kind'] for r in rows}),
                               'scope': 'declarations and file integrity, not consent/transcript authenticity'}))
@@ -361,7 +387,8 @@ def main():
             if args.assets is None:
                 p.error('--assets is required for execution')
             execute(args.manifest, args.assets, seed=args.seed, epsilon=args.epsilon,
-                    iterations=tuple(args.iterations), device=args.device, allow_nonhuman=args.allow_nonhuman)
+                    iterations=tuple(args.iterations), device=args.device, allow_nonhuman=args.allow_nonhuman,
+                    allow_licensed_research=args.allow_licensed_research)
     except Exception as error:
         p.exit(1, f'{type(error).__name__}: {error}\n')
 

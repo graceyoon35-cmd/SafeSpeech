@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "dataset": "KSS",
+  "confirmed_by": "",
+  "confirmed_at": "",
+  "evidence_reference": "",
+  "noncommercial_research": false,
+  "spec_permitted": false,
+  "clean_protected_finetuning_permitted": false,
+  "internal_evaluation_synthesis_permitted": false,
+  "external_publication_permitted": null,
+  "note": "Fill only from an actual team use-scope decision. This template does not grant permission. External publication is assessed separately."
+}
