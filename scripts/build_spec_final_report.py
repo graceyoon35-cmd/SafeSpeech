@@ -128,7 +128,7 @@ def build(validation, output):
         '단일 화자·총 두 학습 seed의 제한된 결과이며 다화자·장기 학습·다른 복제 모델에 대한 일반화 근거가 아니다. cuDNN benchmark는 꺼져 있으나 전체 CUDA 결정론을 강제하지 않아 모든 환경에서 비트 단위 재현을 보장하지 않는다.','',
         '평가 문장·개별 seed·체크포인트 경로는 `audit_strict/evaluation_prompts.csv`, `audit_strict/audit.json`, `seed53_evaluation_location.json`과 해당 평가 `per_file.csv`에 있다.','',
         '## 인계·테스트·보존','',
-        f"앱팀 명령은 `docs/README_SPEC_HANDOFF_20261119_KO.md` 및 `scripts/example_spec_protect.sh`에 있다. `scripts/protect_wav.py`로 실제 KSS 입력부터 보호 WAV까지 GPU 실행했다. 최종 실행기 스모크: {smoke['samples']:,}샘플·44.1kHz PCM16, 최대 차이 {smoke['strict_linf']}, STOI {smoke['stoi']:.10f}, SNR {smoke['snr_db']:.6f}dB. 증거는 `final_cli_checks.json`이다.",'',
+        f"앱팀 명령은 `docs/README_SPEC_HANDOFF_20261120_KO.md` 및 `scripts/example_spec_protect.sh`에 있다. `scripts/protect_wav.py`로 실제 KSS 입력부터 보호 WAV까지 GPU 실행했다. 최종 실행기 스모크: {smoke['samples']:,}샘플·44.1kHz PCM16, 최대 차이 {smoke['strict_linf']}, STOI {smoke['stoi']:.10f}, SNR {smoke['snr_db']:.6f}dB. 증거는 `final_cli_checks.json`이다.",'',
         '전체 자동 테스트 99개 PASS (`tests_release.log`), `pip check` PASS. 실제 WAV 품질 검사·CER 독립 계산·SIM 재인코딩·GPU 스모크와 자동 테스트는 각각 별도 증거다. GPU 바이트 동일성 검사 및 결정론 실행은 실패했다. 최종 Git 공백·추적 파일 검사와 push 상태는 인계 종료 기록에 추가한다.','',
         '기존 약 29GB 백업·체크포인트·실험 폴더는 변경하지 않았다. 새 체크포인트는 `/home/safespeech/experiments/SafeSpeech-KSS-final-20261119/`, 새 검증·보정 사본·발표 자료는 `runs/final_validation_20261119/`에 저장했다. 데이터·WAV·가중치·ZIP·환경 원본 로그는 Git에 올리지 않는다.','',
         '## 미해결·해석 제한','',

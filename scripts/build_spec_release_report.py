@@ -162,7 +162,7 @@ def build(validation):
         '- CPU 실행 성능 및 새 기기의 전체 신규 설치는 미검증. 앱 UI·비동기 실행·배포 연결은 앱팀 담당.',
         '- 별도 화자 동의·음성/가중치 외부 공개 승인을 확보한 것으로 기록하지 않는다. 기존 KSS 내부 비상업적 연구 범위를 유지한다.','',
         '## 발표 그래프','', '![최종 SPEC 지표](figures/spec_release_results_20261120.svg)','',
-        'CSV·PNG·SVG 및 재검산 색인은 runs/final_validation_20261120/presentation/에 있다. Git·백업 인계 상태는 SPEC_RELEASE_STATUS_20261120_KO.md에 별도로 기록한다.','']
+        'CSV·PNG·SVG 및 재검산 색인은 runs/final_validation_20261120/presentation/에 있다. Git·백업 인계 상태는 README_SPEC_HANDOFF_20261120_KO.md에 통합했다.','']
     with (out/'SPEC_FINAL_REPORT_20261120_KO.md').open('x',encoding='utf-8') as stream:
         stream.write('\n'.join(md))
     write(out/'report.json',{'status':'MEASURED_AND_VERIFIED','results':results,'input_quality':quality,

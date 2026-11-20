@@ -10,9 +10,9 @@
 
 SPEC 실행에는 검증된 WSL/CUDA 환경과 고정 Melo 자산이 필요합니다. 앱은 아직 더미 처리기를 사용하므로 연동 점검 문서의 연결 작업을 반영해야 합니다.
 
-재현·연구 근거: [배치 입력·manifest 명세](docs/KOREAN_MELO_SPEC_HANDOFF_20261110_KO.md) · [KSS 연구 정책](docs/KSS_RESEARCH_PROTOCOL_20261118_KO.md) · [KSS 사용 근거](docs/KSS_LICENSE_SCOPE_20261118_KO.md) · [인계·Git·백업 기록](docs/SPEC_RELEASE_STATUS_20261120_KO.md).
+재현·라이선스·데이터 사용 조건·실험 프로토콜은 위 핵심 문서에 통합했습니다. docs의 Markdown은 이 3개만 유지하고 중복 문서 20개를 실제 삭제했습니다. 삭제 전 전체 본문은 [Git 기록 9882630](https://github.com/graceyoon35-cmd/SafeSpeech/tree/9882630dc3eabeeb801b1a3d1680e9e427067a58/docs)에 남아 있습니다. 원본 CSV·JSON·설정·그래프·실행 스크립트·가중치·로그·백업은 보존했습니다. 모델/하위 프로젝트 README·모델 카드는 출처·라이선스·의존성 안내를 위해 원래 위치에 유지합니다.
 
-이전 단계의 보고서와 개발 기록은 [보관 문서 목록](docs/archive/README.md)에 있습니다. 최종 CSV·환경 기록·발표 그림은 `docs/`에 유지합니다. 아래는 원본 논문의 BERT-VITS2 실행 안내입니다. 한국어 Melo SPEC 실행은 위 가이드를 따릅니다.
+아래는 원본 논문의 BERT-VITS2 실행 안내입니다. 한국어 Melo SPEC 실행은 위 가이드를 따릅니다.
 
 This is the source code of our paper "SafeSpeech: Robust and Universal Voice Protection Against Malicious Speech Synthesis" in the USENIX Security 2025. We propose a proactive framework named SafeSpeech that utilizes the pivotal objective optimization and Speech PErturbative Concealment (SPEC) techniques to prevent publicly uploaded speeches from malicious speech synthesis.
 

@@ -105,3 +105,5 @@ python scripts/spec_desktop_bridge.py `
 - GPU 동일 seed의 바이트 결정론 한계와 기존 연구 결과는 그대로다. 신뢰도·차단율을 새로 평가하지 않았고 학습하지 않았다.
 
 증거 폴더: `runs/app_integration_review_20261120/`. 주요 파일은 `remote_heads.txt`, `ui_commit.txt`, `ui_source_d678c20.zip`, `windows_jobs/`, `windows_path_smoke/`, `qt_contract_smoke.json`, `full_tests_final.log`다. 기존 최종 실험·체크포인트·백업은 변경하지 않았다.
+
+문서 축소 후에도 이 연결 계약은 유지한다. 배치 입력·자산·검산·checkpoint·백업 명세는 [실행 가이드](README_SPEC_HANDOFF_20261120_KO.md), 라이선스·연구 프로토콜·이전 실험 결과·한계는 [최종 보고서](SPEC_FINAL_REPORT_20261120_KO.md)에 통합했다.
