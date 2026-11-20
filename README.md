@@ -1,3 +1,5 @@
+> **앱팀 실제 코드 연동 점검 (2026-11-20)**: [검증 결과·Windows 브리지·앱팀 연결 방법](docs/SPEC_APP_INTEGRATION_REVIEW_20261120_KO.md). 현재 앱은 더미 처리기이며 연결 작업이 필요합니다.
+
 > **SPEC 앱 연동 인계 (2026-11-20)**: [실행·입출력·의존성·예제](docs/README_SPEC_HANDOFF_20261120_KO.md) · [최종 연구 결과](docs/SPEC_FINAL_REPORT_20261120_KO.md). 검증된 WSL 실행 환경과 고정 Melo 자산을 사용합니다.
 
 # SafeSpeech
