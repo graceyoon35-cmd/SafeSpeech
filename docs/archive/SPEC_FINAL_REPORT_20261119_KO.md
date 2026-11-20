@@ -1,4 +1,6 @@
-> 11월 19일 시점의 기록입니다. ε 보정본 추가 학습·평가를 포함한 최신 결과는 [2026-11-20 최종 보고서](SPEC_FINAL_REPORT_20261120_KO.md)와 [앱팀 명세](README_SPEC_HANDOFF_20261120_KO.md)를 확인하세요.
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
+> 11월 19일 시점의 기록입니다. ε 보정본 추가 학습·평가를 포함한 최신 결과는 [2026-11-20 최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)와 [앱팀 명세](../README_SPEC_HANDOFF_20261120_KO.md)를 확인하세요.
 
 # SPEC 최종 결과 보고서 — 2026-11-19
 
@@ -59,7 +61,7 @@ seed 53에서 Clean·SPEC_10을 각각 1,000-step 재학습하고 동일 30문�
 
 ## 인계·테스트·보존
 
-앱팀 명령은 `docs/README_SPEC_HANDOFF_20261119_KO.md` 및 `scripts/example_spec_protect.sh`에 있다. `scripts/protect_wav.py`로 실제 KSS 입력부터 보호 WAV까지 GPU 실행했다. 최종 실행기 스모크: 141,123샘플·44.1kHz PCM16, 최대 차이 0.0313720703125, STOI 0.8874569446, SNR 11.639769dB. 증거는 `final_cli_checks.json`이다.
+앱팀 명령은 `docs/archive/README_SPEC_HANDOFF_20261119_KO.md` 및 `scripts/example_spec_protect.sh`에 있다. `scripts/protect_wav.py`로 실제 KSS 입력부터 보호 WAV까지 GPU 실행했다. 최종 실행기 스모크: 141,123샘플·44.1kHz PCM16, 최대 차이 0.0313720703125, STOI 0.8874569446, SNR 11.639769dB. 증거는 `final_cli_checks.json`이다.
 
 전체 자동 테스트 99개 PASS (`tests_release.log`), `pip check` PASS. 실제 WAV 품질 검사·CER 독립 계산·SIM 재인코딩·GPU 스모크와 자동 테스트는 각각 별도 증거다. GPU 바이트 동일성 검사 및 결정론 실행은 실패했다. 최종 Git 공백·추적 파일 검사와 push 상태는 인계 종료 기록에 추가한다.
 

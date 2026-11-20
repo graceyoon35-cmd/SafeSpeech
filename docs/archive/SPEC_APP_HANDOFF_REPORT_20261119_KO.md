@@ -1,4 +1,6 @@
-> 11월 19일 시점의 기록입니다. ε 보정본 추가 학습·평가를 포함한 최신 결과는 [2026-11-20 최종 보고서](SPEC_FINAL_REPORT_20261120_KO.md)와 [앱팀 명세](README_SPEC_HANDOFF_20261120_KO.md)를 확인하세요.
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
+> 11월 19일 시점의 기록입니다. ε 보정본 추가 학습·평가를 포함한 최신 결과는 [2026-11-20 최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)와 [앱팀 명세](../README_SPEC_HANDOFF_20261120_KO.md)를 확인하세요.
 
 # 앱팀 인계 완료 보고서 — 2026-11-19
 
@@ -13,7 +15,7 @@ SPEC 연구 코드·오프라인 보호 실행기·문서만 인계한다. UI·�
 - `scripts/audit_kss_final.py`, `scripts/recompute_kss_sim.py`: 원본 실험·파형·CER·SIM 독립 검증.
 - `scripts/project_kss_strict_inputs.py`: 기존 SPEC_10을 보존하는 ε 보정 사본 생성.
 - `scripts/run_kss_seed_repeat.py`: Clean·SPEC_10의 추가 학습 seed 반복.
-- `scripts/build_spec_final_report.py`, `docs/figures/spec_final_results_20261119.svg`: 실측 표·발표 그래프 재생성.
+- `scripts/build_spec_final_report.py`, `docs/archive/figures/spec_final_results_20261119.svg`: 실측 표·발표 그래프 재생성.
 - `scripts/test_final_spec_validation.py`: CER 100% 초과, PCM16 저장 경계 및 입력 거부 검사.
 
 ## 실제 검증

@@ -1,6 +1,6 @@
 # SPEC 앱 연동 인계 — 2026-11-20
 
-`scripts/protect_wav.py`를 독립 프로세스로 실행하면 실제 WAV를 SPEC 보호 WAV로 변환한다. 엄격한 ε는 최종 PCM16 파일을 기준으로 검사한다. 연구 결과는 [최종 보고서](SPEC_FINAL_REPORT_20261120_KO.md), 이전 검증 상세는 [11월 19일 명세](README_SPEC_HANDOFF_20261119_KO.md)에 있다.
+`scripts/protect_wav.py`를 독립 프로세스로 실행하면 실제 WAV를 SPEC 보호 WAV로 변환한다. 엄격한 ε는 최종 PCM16 파일을 기준으로 검사한다. 연구 결과는 [최종 보고서](SPEC_FINAL_REPORT_20261120_KO.md), 이전 검증 상세는 [11월 19일 명세](archive/README_SPEC_HANDOFF_20261119_KO.md)에 있다.
 
 ## 검증 환경과 의존성
 

@@ -1,3 +1,5 @@
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
 # SPEC 개발 재개: 보존·환경 재검증·STOI 연동 준비
 
 실행일: 2026-10-30 KST. 아래 성공 결과는 실제 실행 로그와 JSON에 근거합니다.
@@ -20,7 +22,7 @@
 | `scripts/download_setup_models.py` | 내용 유지, 다운로드 실행 안 함 |
 | `scripts/smoke_perturbation.py` | 내용 유지, 실제 1회·10회 실행 |
 | `scripts/validate_spec_pair.py` | 내용 유지, 두 새 실행에 CLI 검증 수행 |
-| `docs/SPEC_VALIDATION_20261030_KO.md` | 원본 백업 후 기존 10회 손실값 3개만 정정 |
+| `docs/archive/SPEC_VALIDATION_20261030_KO.md` | 원본 백업 후 기존 10회 손실값 3개만 정정 |
 
 기존 보고서의 대상은 `smoke_20261030_004820_253549/report.json`입니다.
 해당 실제 report와 로그에 맞춰 mel/NR/KL을 각각
@@ -40,7 +42,7 @@ integration-setup의 환경 구축 커밋 `be448f2`는 현재 HEAD보다 1개 �
 | `docs/WSL_SETUP_KO.md` | 상세 WSL 구축 이력, 오류 해결, 과거 스모크. 과거 SafeSpeech 폴더 기준 |
 | `docs/SETUP_VALIDATION_SUMMARY_KO.md` | 2026-10-25 환경·검증 총정리. 현재 보고서는 별도 worktree에서 10월 30일 실행을 기록 |
 
-추가 문서는 이 보고서와 `docs/SPEC_STOI_HANDOFF_KO.md`입니다.
+추가 문서는 이 보고서와 `docs/archive/SPEC_STOI_HANDOFF_KO.md`입니다.
 원본 `protect.py`, 설정, filelist, requirements.txt는 수정하지 않았습니다.
 
 ## 재검증 환경
@@ -136,7 +138,7 @@ WAV는 `clip(original_float32 + saved_noise, -1, 1)`과 정확히 일치합니�
 
 `origin/feature/metrics`의 `27ae06d1fe304320c671eeeb15338e8c23b36ac6`을
 읽기만 했습니다. 필요한 코드·버전·입력 계약·실행 예시는
-`docs/SPEC_STOI_HANDOFF_KO.md`에 정리했습니다.
+`docs/archive/SPEC_STOI_HANDOFF_KO.md`에 정리했습니다.
 감사 폴더에 실제 새 결과를 가리키는 `spec1_metrics_manifest.json`,
 `spec10_metrics_manifest.json`을 생성하고 입력 파일 존재를 확인했습니다.
 
@@ -167,9 +169,9 @@ WAV는 `clip(original_float32 + saved_noise, -1, 1)`과 정확히 일치합니�
 - `requirements-wsl-base.txt`, `requirements-wsl-perturbation.txt`
 - `scripts/check_gpu_audio.py`, `scripts/download_setup_models.py`
 - `scripts/smoke_perturbation.py`, `scripts/validate_spec_pair.py`
-- `docs/SPEC_VALIDATION_20261030_KO.md`
-- `docs/SPEC_STOI_HANDOFF_KO.md`
-- `docs/SPEC_RESUME_VALIDATION_20261030_KO.md`
+- `docs/archive/SPEC_VALIDATION_20261030_KO.md`
+- `docs/archive/SPEC_STOI_HANDOFF_KO.md`
+- `docs/archive/SPEC_RESUME_VALIDATION_20261030_KO.md`
 
 누락 integration 문서 3개는 현재 복사하지 않았으므로 후보에 포함하지 않습니다.
 `runs/` 전체(새 WAV, noise, report, validation, manifest, 감사 wrapper,

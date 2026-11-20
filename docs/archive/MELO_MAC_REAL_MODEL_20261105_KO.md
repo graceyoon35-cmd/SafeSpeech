@@ -1,3 +1,5 @@
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
 # Mac 실제 MeloTTS 로딩·한국어 합성·SPEC 기울기 검증
 
 실행일: 2026-11-05 · 브랜치: `feature/spec-perturbation`

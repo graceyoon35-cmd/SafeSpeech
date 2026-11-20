@@ -1,3 +1,5 @@
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
 # WSL2 Melo 실제 학습 및 평가 기록 — 2026-11-18
 
 현재 작업 위치는 `C:/Users/<USER>/SafeSpeech-desktop-integration-20261118`, 브랜치는
@@ -7,7 +9,7 @@ SPEC → paired 학습 → held-out 합성 → SIM/CER 측정**을 실행했다.
 
 ## 데이터 사용 근거와 KSS 상태
 
-[별도 라이선스 확인 기록](KSS_LICENSE_SCOPE_20261118_KO.md)에 원 배포처·미러·CC 약관과 작업별 판단을 기록했다.
+[별도 라이선스 확인 기록](../KSS_LICENSE_SCOPE_20261118_KO.md)에 원 배포처·미러·CC 약관과 작업별 판단을 기록했다.
 비상업 TTS 연구에 관한 공개 근거를 확인했지만, 팀 승인·별도 화자 모사 허가가 있다는 기록은 만들지 않았다.
 라이선스가 모든 인격권이나 합성물 공개까지 일괄 허용한다고 결론내리지 않았다.
 
@@ -134,7 +136,7 @@ train 2개·test 1개·3-step의 경로 점검이다. 조건 간 작은 차이�
   그림 제목과 CSV에 synthetic smoke 한계를 표시했다. 그래프를 눈으로 확인했다.
 - `runs/training_20261118/integrity/integrity.json`: 생성기 checkpoint·판별기/optimizer 상태 파일의 해시,
   공식 모델/config·KSS 200개 원본 해시를 최종 확인했다. 최종 구현의 실행 후 소스 스냅샷도 보존했다.
-- 기존 `docs/DESKTOP_INTEGRATION_20261118_KO.md`는 앞 단계 시점의 기록이다.
+- 기존 `docs/archive/DESKTOP_INTEGRATION_20261118_KO.md`는 앞 단계 시점의 기록이다.
   이 문서는 그 이후 실제 합성 학습·SIM/CER 실행을 추가한 최신 기록이다.
 
 주요 실행 스크립트 순서 (모든 명령은 이 작업에서 직접 실행했다):

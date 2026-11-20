@@ -1,3 +1,5 @@
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
 # 100-step 실측·복구·평가 및 발표 자료 — 2026-11-18 KST
 
 작업 공간 `C:/Users/<USER>/SafeSpeech-desktop-integration-20261118`, 브랜치 `integration/desktop-20261118`을 유지했다.

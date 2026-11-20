@@ -1,8 +1,18 @@
-> **앱팀 실제 코드 연동 점검 (2026-11-20)**: [검증 결과·Windows 브리지·앱팀 연결 방법](docs/SPEC_APP_INTEGRATION_REVIEW_20261120_KO.md). 현재 앱은 더미 처리기이며 연결 작업이 필요합니다.
-
-> **SPEC 앱 연동 인계 (2026-11-20)**: [실행·입출력·의존성·예제](docs/README_SPEC_HANDOFF_20261120_KO.md) · [최종 연구 결과](docs/SPEC_FINAL_REPORT_20261120_KO.md). 검증된 WSL 실행 환경과 고정 Melo 자산을 사용합니다.
-
 # SafeSpeech
+
+## SPEC 핵심 문서
+
+| 목적 | 문서 |
+|---|---|
+| 최종 연구 결과·SIM/CER·품질·ε·한계 | [최종 보고서](docs/SPEC_FINAL_REPORT_20261120_KO.md) |
+| 설치·실행·입출력·실제 WAV 예제 | [앱팀 실행 가이드](docs/README_SPEC_HANDOFF_20261120_KO.md) |
+| 실제 앱 코드와 연결 방법·남은 작업 | [앱 연동 점검](docs/SPEC_APP_INTEGRATION_REVIEW_20261120_KO.md) |
+
+SPEC 실행에는 검증된 WSL/CUDA 환경과 고정 Melo 자산이 필요합니다. 앱은 아직 더미 처리기를 사용하므로 연동 점검 문서의 연결 작업을 반영해야 합니다.
+
+재현·연구 근거: [배치 입력·manifest 명세](docs/KOREAN_MELO_SPEC_HANDOFF_20261110_KO.md) · [KSS 연구 정책](docs/KSS_RESEARCH_PROTOCOL_20261118_KO.md) · [KSS 사용 근거](docs/KSS_LICENSE_SCOPE_20261118_KO.md) · [인계·Git·백업 기록](docs/SPEC_RELEASE_STATUS_20261120_KO.md).
+
+이전 단계의 보고서와 개발 기록은 [보관 문서 목록](docs/archive/README.md)에 있습니다. 최종 CSV·환경 기록·발표 그림은 `docs/`에 유지합니다. 아래는 원본 논문의 BERT-VITS2 실행 안내입니다. 한국어 Melo SPEC 실행은 위 가이드를 따릅니다.
 
 This is the source code of our paper "SafeSpeech: Robust and Universal Voice Protection Against Malicious Speech Synthesis" in the USENIX Security 2025. We propose a proactive framework named SafeSpeech that utilizes the pivotal objective optimization and Speech PErturbative Concealment (SPEC) techniques to prevent publicly uploaded speeches from malicious speech synthesis.
 

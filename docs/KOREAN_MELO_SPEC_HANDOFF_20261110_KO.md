@@ -1,3 +1,5 @@
+> 배치 입력·manifest·기존 내보내기 명세를 위해 유지합니다. 본문의 데이터 미확보·Mac 환경·기존 ε 허용오차는 11월 10일 당시 기록입니다. 현재 WSL 실행·엄격한 ε는 [최신 실행 가이드](README_SPEC_HANDOFF_20261120_KO.md)를 확인하세요.
+
 # 한국어 Melo SPEC 실행·전달 절차 (2026-11-10)
 
 현재 브랜치: `feature/spec-perturbation`. Commit·Push 미수행.

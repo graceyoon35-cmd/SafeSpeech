@@ -1,3 +1,5 @@
+> **보관 문서**: 작성 당시 개발 상태·수치를 담은 기록입니다. 현재 실행은 [앱팀 실행 가이드](../README_SPEC_HANDOFF_20261120_KO.md), 연구 결론은 [최종 보고서](../SPEC_FINAL_REPORT_20261120_KO.md)를 확인하세요.
+
 # MeloTTS SPEC 산출물 검증·STOI 연결 (2026-11-05)
 
 ## 현재 상태와 Git 최신화
@@ -168,7 +170,7 @@ Mock STOI 숫자는 Melo 음질·보호 효과 결과로 보고하지 않습니�
 
 ## 기존 BERT-VITS2 결과 보존
 
-`docs/SPEC_STOI_RESULTS_KO.md`의 0.9612467971012578 (1회),
+`docs/archive/SPEC_STOI_RESULTS_KO.md`의 0.9612467971012578 (1회),
 0.7754191151068554 (10회)는 **2026-10-30 BERT-VITS2 기반 실제 SPEC**의
 영어 단일 발화 결과입니다. 해당 문서·검증기·평가기·원본 연구 코드는 수정하지 않았습니다.
 새 Melo 결과는 `model_kind=MeloTTS-Korean`, 별도 JSON·CSV·실행 ID로 구분합니다.
