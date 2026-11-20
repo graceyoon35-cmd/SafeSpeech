@@ -16,3 +16,10 @@ __pycache__/
 /bert/**/spm.model
 /bert_vits2/slm/wavlm-base-plus/pytorch_model.bin
 /bert_vits2/slm/wavlm-base-plus/config.json
+
+# SPEC release: local backup archives and trained model weights
+*.zip
+*.pth
+*.ckpt
+*.safetensors
+/backups/

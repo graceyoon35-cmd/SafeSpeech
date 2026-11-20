@@ -1,0 +1,6 @@
+# Verified WSL SPEC application environment; reuse the existing venv when possible.
+# Install torch/torchaudio 2.7.1+cu128 from the CUDA 12.8 wheel index first.
+# Pinned Melo/backend/model assets and FFmpeg/libsndfile are also required.
+-r requirements-wsl-perturbation.txt
+-r requirements-melo-training-wsl.txt
+pystoi==0.4.1

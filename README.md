@@ -1,3 +1,5 @@
+> **SPEC 앱 연동 인계 (2026-11-20)**: [실행·입출력·의존성·예제](docs/README_SPEC_HANDOFF_20261120_KO.md) · [최종 연구 결과](docs/SPEC_FINAL_REPORT_20261120_KO.md). 검증된 WSL 실행 환경과 고정 Melo 자산을 사용합니다.
+
 # SafeSpeech
 
 This is the source code of our paper "SafeSpeech: Robust and Universal Voice Protection Against Malicious Speech Synthesis" in the USENIX Security 2025. We propose a proactive framework named SafeSpeech that utilizes the pivotal objective optimization and Speech PErturbative Concealment (SPEC) techniques to prevent publicly uploaded speeches from malicious speech synthesis.
