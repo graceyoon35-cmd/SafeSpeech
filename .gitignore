@@ -9,6 +9,7 @@ __pycache__/
 # Downloaded checkpoints and generated perturbations
 /checkpoints/
 /runs/
+/backups/
 *.bert.pt
 *.noise
 /bert/**/pytorch_model*.bin

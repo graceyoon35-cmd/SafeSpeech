@@ -1,0 +1,14 @@
+{
+  "backend_repository": "<validated-backend-repository>",
+  "ui_snapshot": "<demo-run>/app_snapshot/ui",
+  "output_root": "<demo-run>/live_app_jobs",
+  "epsilon_units_255": 2,
+  "epsilon_normalized": 0.00784313725490196,
+  "iterations": 10,
+  "seed": 52,
+  "mode": "SPEC",
+  "input": {"format": "WAV", "sample_rate": 44100, "subtype": "PCM_16", "channels": 1, "seconds": [1, 10]},
+  "output_policy": "fresh UUID job on every request; validate result.json settings and WAV hashes",
+  "human_listening_status": "pending",
+  "defense_scope": "Limited one-speaker, one-seed, same-Melo 1000-step attack; no universal defense probability"
+}

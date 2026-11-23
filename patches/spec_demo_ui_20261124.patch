@@ -1,0 +1,121 @@
+--- a/ui/ui/main_page.py
++++ b/ui/ui/main_page.py
+@@ -5,7 +5,7 @@
+ 
+ from .start_page import DesignPage, button, label, panel
+ from file_selection import FileSelection
+-from protection_processor import DummyProtectionProcessor
++from spec_demo_app import build_processor
+ from result_saver import prepare_destination, save_result as export_result
+ from media_playback import MediaPlayback
+ from error_handling import friendly_error
+@@ -18,7 +18,7 @@
+         super().__init__(main=True)
+         self.setAcceptDrops(True)
+         self.selection = FileSelection()
+-        self.processor = DummyProtectionProcessor(self)
++        self.processor = build_processor(self)
+         self.playback = MediaPlayback(self)
+         self.playback.state_changed.connect(self.update_playback_button)
+         self.playback.error_occurred.connect(self.on_playback_error)
+@@ -45,7 +45,7 @@
+         self.drop_button.setAccessibleName("파일 추가: WAV, MP3, MP4")
+         self.drop_button.clicked.connect(self.choose_files)
+         title = label(self.drop_button, "여기에 파일을 끌어오세요", (0, 10, 576, 20), 13, "#344054", 500, Qt.AlignHCenter)
+-        subtitle = label(self.drop_button, "WAV · MP3 · MP4 지원", (0, 32, 576, 15), 10, "#7b8798", 400, Qt.AlignHCenter)
++        subtitle = label(self.drop_button, "WAV (44.1kHz PCM16 mono) 지원", (0, 32, 576, 15), 10, "#7b8798", 400, Qt.AlignHCenter)
+         title.setAttribute(Qt.WA_TransparentForMouseEvents)
+         subtitle.setAttribute(Qt.WA_TransparentForMouseEvents)
+         self.file_picker_button = button(self.drop_button, "+ 파일 추가", (236, 54, 104, 28), "uploadPicker")
+@@ -67,7 +67,7 @@
+         label(action, "보호 실행", (17, 17, 250, 19), 14, "#223047", 600)
+         label(action, "선택한 파일에 딥보이스 방어 처리를 적용합니다.", (17, 44, 334, 14), 10, "#7c8796")
+         self.selected_count = None
+-        for i, (name, value) in enumerate((("선택 파일", "3개"), ("지원 형식", "WAV · MP3 · MP4"), ("처리 방식", "로컬 처리"))):
++        for i, (name, value) in enumerate((("선택 파일", "3개"), ("지원 형식", "WAV (44.1kHz PCM16 mono)"), ("처리 방식", "로컬 처리"))):
+             label(action, name, (17, 66 + 18*i, 100, 14), 10, "#8290a2")
+             field = label(action, value, (157, 66 + 18*i, 194, 14), 10, "#42516a", 500, Qt.AlignRight)
+             if i == 0:
+@@ -175,7 +175,7 @@
+     def choose_files(self):
+         if self.processor.running:
+             return
+-        paths, _ = QFileDialog.getOpenFileNames(self, "파일 추가", "", "음성·영상 (*.wav *.mp3 *.mp4 *.WAV *.MP3 *.MP4)")
++        paths, _ = QFileDialog.getOpenFileNames(self, "파일 추가", "", "WAV (*.wav *.WAV)")
+         if paths:
+             self.add_files(paths)
+ 
+@@ -239,7 +239,7 @@
+         self.current_filename.setText(self.files[index].name)
+         self.current_filename.setToolTip(str(self.files[index].path))
+         self.processing_order.setText(f"{index + 1} / {total}")
+-        self.processing_status.setText("더미 보호 처리 중")
++        self.processing_status.setText("SPEC 보호 처리 중")
+         # Keep the active file visible within the original three-row panel.
+         self.file_offset = min(index, max(0, total - 3))
+         self.refresh_files()
+@@ -253,12 +253,12 @@
+         self.refresh_files()
+ 
+     def on_processing_finished(self):
+-        self.processing_status.setText("모든 파일 더미 처리 완료")
++        self.processing_status.setText("모든 파일 처리 완료")
+         if self.processor.results:
+             self.show_result(self.processor.results[-1])
+         if self.processor.failures:
+             failures = self.processor.failures
+-            self.processing_status.setText(f"더미 처리 종료 · 완료 {len(self.processor.results)} · 실패 {len(failures)}")
++            self.processing_status.setText(f"처리 종료 · 완료 {len(self.processor.results)} · 실패 {len(failures)}")
+             if not self.processor.results:
+                 self.result_filename.setText("완료된 결과가 없습니다")
+                 self.set_badge_status(self.result_badge, "실패")
+@@ -295,9 +295,9 @@
+         for field, name in zip(self.result_names, (result.original_path.name, result.protected_name)):
+             field.setText(name)
+             field.setToolTip(name)
+-        for field, value in zip(self.result_metrics, (f"{result.elapsed_seconds:.1f}초", "완료", f"{result.confidence}%")):
++        for field, value in zip(self.result_metrics, (f"{result.elapsed_seconds:.1f}초", "완료", "미측정" if result.confidence is None else f"{result.confidence}%")):
+             field.setText(value)
+-        self.result_metrics[2].setToolTip("고정 테스트값이며 실제 AI 분석 수치가 아닙니다.")
++        self.result_metrics[2].setToolTip("복제 방어 확률은 측정하지 않았습니다.")
+         for role, play in self.play_buttons.items():
+             available = self.playback.available(role)
+             play.setEnabled(available)
+@@ -365,7 +365,7 @@
+         super().hideEvent(event)
+ 
+     def show_settings(self):
+-        QMessageBox.information(self, "설정", "처리 방식: 로컬 처리\n지원 형식: WAV · MP3 · MP4\n최대 파일 수: 10개\nAI 보호 모델: 미연결")
++        QMessageBox.information(self, "설정", "처리 방식: 로컬 처리\n지원 형식: WAV (44.1kHz PCM16 mono)\n최대 파일 수: 10개\nSPEC: ε=2/255, 10회, seed52")
+ 
+     def show_help(self):
+-        QMessageBox.information(self, "도움말", "파일 추가 버튼이나 영역을 클릭하거나 파일을 끌어 놓으세요.\n× 버튼으로 파일을 삭제할 수 있습니다.\n파일이 4개 이상이면 마우스 휠로 목록을 이동합니다.\n\n보호 시작은 파일당 약 1.5초의 더미 처리입니다.\n완료 후 목록의 파일명을 클릭하면 해당 결과를 확인할 수 있습니다.\n실제 파일은 생성하지 않으며 신뢰도는 고정 테스트값입니다.")
++        QMessageBox.information(self, "도움말", "파일 추가 버튼이나 영역을 클릭하거나 파일을 끌어 놓으세요.\n× 버튼으로 파일을 삭제할 수 있습니다.\n파일이 4개 이상이면 마우스 휠로 목록을 이동합니다.\n\n보호 시작은 실제 SPEC GPU 처리를 실행합니다.\n완료 후 목록의 파일명을 클릭하면 해당 결과를 확인할 수 있습니다.\n실제 WAV를 생성하며 방어 확률은 표시하지 않습니다.")
+--- a/ui/file_selection.py
++++ b/ui/file_selection.py
+@@ -30,7 +30,7 @@
+ 
+ class FileSelection:
+     MAX_FILES = 10
+-    EXTENSIONS = frozenset((".wav", ".mp3", ".mp4"))
++    EXTENSIONS = frozenset((".wav",))
+ 
+     def __init__(self):
+         self._files = []
+--- a/ui/main.py
++++ b/ui/main.py
+@@ -25,6 +25,14 @@
+         self.start_page.start_requested.connect(lambda: self.setCurrentWidget(self.main_page))
+ 
+ 
++    def closeEvent(self, event):
++        if self.main_page.processor.running:
++            event.ignore()
++            return
++        self.main_page.playback.stop()
++        super().closeEvent(event)
++
++
+ def create_app():
+     install_error_handler()
+     app = QApplication.instance() or QApplication(sys.argv)
