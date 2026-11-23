@@ -12,3 +12,7 @@ tmp*/
 *.mp3
 *.mp4
 *_protected.*
+/build/
+/dist/
+/VoiceProtect.spec
+/voiceprotect.ini

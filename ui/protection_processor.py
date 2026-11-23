@@ -1,53 +1,57 @@
-"""Nonblocking dummy backend.
-
-An AI worker can later expose this same start/signals interface. Run expensive
-inference in a worker thread/process, not in the GUI timer callback.
-"""
-from dataclasses import dataclass
-from pathlib import Path
+"""Run the media pipeline off the Qt event loop and dispatch signals on the UI thread."""
 import logging
-from error_handling import friendly_error
+from PySide6.QtCore import QObject, QThread, Signal, Slot
 
 logger = logging.getLogger(__name__)
 
-from PySide6.QtCore import QObject, Signal, QTimer, QElapsedTimer
+
+class _Worker(QObject):
+    started = Signal(int, int)
+    succeeded = Signal(int, object)
+    failed = Signal(int, str)
+    progress = Signal(int)
+    completed = Signal()
+
+    def __init__(self, client, files):
+        super().__init__()
+        self.client, self.files = client, files
+
+    @Slot()
+    def run(self):
+        try:
+            for index, item in enumerate(self.files):
+                self.started.emit(index, len(self.files))
+                try:
+                    def report(progress):
+                        percent = int(100 * (index + progress.overall) / len(self.files))
+                        self.progress.emit(percent)
+                    result = self.client.protect(item, on_progress=report)
+                except Exception as error:
+                    logger.exception('SPEC failed at batch index %s', index)
+                    self.failed.emit(index, str(error))
+                else:
+                    self.succeeded.emit(index, result)
+                self.progress.emit(int(100*(index+1)/len(self.files)))
+        finally:
+            self.completed.emit()
 
 
-@dataclass(frozen=True)
-class ProtectionResult:
-    original_path: Path
-    elapsed_seconds: float
-    confidence: int = 92  # Fixed test value, not an AI confidence estimate.
-    output_path: Path | None = None  # Set to the AI/backend output when available.
-
-    @property
-    def protected_name(self):
-        return f"{self.original_path.stem}_protected{self.original_path.suffix}"
-
-
-class DummyProtectionProcessor(QObject):
+class SpecProtectionProcessor(QObject):
     running_changed = Signal(bool)
-    file_started = Signal(int, int)  # zero-based index, batch size
+    file_started = Signal(int, int)
     file_finished = Signal(int)
     file_failed = Signal(int, str)
-    progress_changed = Signal(int)  # overall batch percentage
+    progress_changed = Signal(int)
     finished = Signal()
 
-    def __init__(self, parent=None, file_duration_ms=1500):
+    def __init__(self, client, parent=None):
         super().__init__(parent)
-        if file_duration_ms <= 0:
-            raise ValueError("File duration must be positive")
-        self.file_duration_ms = file_duration_ms
+        self.client = client
         self.running = False
-        self._files = ()
-        self._index = 0
-        self._elapsed = QElapsedTimer()
-        self._results = []
         self.failures = {}
-        self._checked = False
-        self._timer = QTimer(self)
-        self._timer.setInterval(50)
-        self._timer.timeout.connect(self._tick)
+        self._results = []
+        self._thread = None
+        self._worker = None
 
     @property
     def results(self):
@@ -56,63 +60,51 @@ class DummyProtectionProcessor(QObject):
     def start(self, files):
         if self.running or not files:
             return False
-        self._files = tuple(files)
-        self._index = 0
+        files = tuple(files)
+        if not files:
+            return False
         self._results.clear()
         self.failures.clear()
         self.running = True
         self.running_changed.emit(True)
         self.progress_changed.emit(0)
-        self._start_current_file()
-        self._timer.start()
+        self._thread = QThread(self)
+        self._worker = _Worker(self.client, files)
+        self._worker.moveToThread(self._thread)
+        self._thread.started.connect(self._worker.run)
+        self._worker.started.connect(self._on_started)
+        self._worker.succeeded.connect(self._on_success)
+        self._worker.failed.connect(self._on_failure)
+        self._worker.progress.connect(self._on_progress)
+        self._worker.completed.connect(self._thread.quit)
+        self._worker.completed.connect(self._worker.deleteLater)
+        self._thread.finished.connect(self._on_finished)
+        self._thread.finished.connect(self._thread.deleteLater)
+        self._thread.start()
         return True
 
-    def _start_current_file(self):
-        self._checked = False
-        self._elapsed.start()
-        self.file_started.emit(self._index, len(self._files))
+    @Slot(int, int)
+    def _on_started(self, index, total):
+        self.file_started.emit(index, total)
 
-    def _tick(self):
-        if not self.running:
-            return
-        try:
-            path = Path(getattr(self._files[self._index], "path", self._files[self._index]))
-            if not self._checked:
-                self._validate_file(path)
-                self._checked = True
-            fraction = min(1.0, self._elapsed.elapsed() / self.file_duration_ms)
-            self.progress_changed.emit(int(100 * (self._index + fraction) / len(self._files)))
-            if fraction < 1:
-                return
-            self._validate_file(path)
-            self._results.append(self._build_result(path))
-        except Exception as error:
-            logger.exception("Processing failed at index %s: %r", self._index, self._files[self._index])
-            message = friendly_error(error, "이 파일을 처리하지 못했습니다. 파일을 확인한 뒤 다시 시도해주세요.")
-            self.failures[self._index] = message
-            self.file_failed.emit(self._index, message)
-        else:
-            self.file_finished.emit(self._index)
-        self.progress_changed.emit(int(100 * (self._index + 1) / len(self._files)))
-        self._advance()
+    @Slot(int, object)
+    def _on_success(self, index, result):
+        self._results.append(result)
+        self.file_finished.emit(index)
 
-    @staticmethod
-    def _validate_file(path):
-        if path.suffix.lower() not in (".wav", ".mp3", ".mp4"):
-            raise ValueError("Unsupported media extension")
-        with path.open("rb") as stream:
-            stream.read(1)
+    @Slot(int, str)
+    def _on_failure(self, index, message):
+        self.failures[index] = message
+        self.file_failed.emit(index, message)
 
-    def _build_result(self, path):
-        """Replace this dummy result factory when connecting the AI backend."""
-        return ProtectionResult(path, self._elapsed.elapsed() / 1000)
+    @Slot(int)
+    def _on_progress(self, value):
+        self.progress_changed.emit(value)
 
-    def _advance(self):
-        self._index += 1
-        if self._index < len(self._files):
-            self._start_current_file()
-        else:
-            self._timer.stop()
-            self.running = False
-            self.running_changed.emit(False)
-            self.finished.emit()
+    @Slot()
+    def _on_finished(self):
+        self._worker = None
+        self._thread = None
+        self.running = False
+        self.running_changed.emit(False)
+        self.finished.emit()

@@ -1,11 +1,13 @@
-"""Figma 13:2 / 22:2 / 23:2: final main screen, without strength control."""
+"""Voice Protect file selection, processing and results screen."""
+from dataclasses import replace
 import logging
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QFileDialog, QMessageBox, QProgressBar
+from PySide6.QtWidgets import QFileDialog, QInputDialog, QMessageBox, QProgressBar
 
 from .start_page import DesignPage, button, label, panel
 from file_selection import FileSelection
-from protection_processor import DummyProtectionProcessor
+from protection_processor import SpecProtectionProcessor
+from spec_pipeline import MediaProtectionClient
 from result_saver import prepare_destination, save_result as export_result
 from media_playback import MediaPlayback
 from error_handling import friendly_error
@@ -18,7 +20,8 @@ class MainPage(DesignPage):
         super().__init__(main=True)
         self.setAcceptDrops(True)
         self.selection = FileSelection()
-        self.processor = DummyProtectionProcessor(self)
+        self.client = MediaProtectionClient()
+        self.processor = SpecProtectionProcessor(self.client, self)
         self.playback = MediaPlayback(self)
         self.playback.state_changed.connect(self.update_playback_button)
         self.playback.error_occurred.connect(self.on_playback_error)
@@ -31,7 +34,8 @@ class MainPage(DesignPage):
         mark.setStyleSheet("background: rgba(255,255,255,219); border: 1px solid rgba(215,224,239,204); border-radius: 9px; font-size: 13px; font-weight: 600; color: #334155;")
         label(header, "Voice Protect", (64, 18, 140, 19), 15, "#192434", 600)
         label(header, "딥보이스 방어", (64, 38, 110, 14), 10, "#65758b")
-        button(header, "설정", (885, 16, 55, 37)).clicked.connect(self.show_settings)
+        self.settings_button = button(header, "설정", (885, 16, 55, 37))
+        self.settings_button.clicked.connect(self.show_settings)
         button(header, "도움말", (948, 16, 66, 37)).clicked.connect(self.show_help)
 
         label(self.glass, "음성·영상 보호", (25, 89, 320, 31), 24, "#172033", 600)
@@ -67,11 +71,13 @@ class MainPage(DesignPage):
         label(action, "보호 실행", (17, 17, 250, 19), 14, "#223047", 600)
         label(action, "선택한 파일에 딥보이스 방어 처리를 적용합니다.", (17, 44, 334, 14), 10, "#7c8796")
         self.selected_count = None
-        for i, (name, value) in enumerate((("선택 파일", "3개"), ("지원 형식", "WAV · MP3 · MP4"), ("처리 방식", "로컬 처리"))):
+        for i, (name, value) in enumerate((("선택 파일", "3개"), ("지원 형식", "WAV · MP3 · MP4"), ("보호 강도", f"{self.client.config.epsilon:g} / 255"))):
             label(action, name, (17, 66 + 18*i, 100, 14), 10, "#8290a2")
             field = label(action, value, (157, 66 + 18*i, 194, 14), 10, "#42516a", 500, Qt.AlignRight)
             if i == 0:
                 self.selected_count = field
+            elif i == 2:
+                self.strength_value = field
         self.protect_button = button(action, "모든 파일 보호 시작", (17, 124, 334, 38), "primary")
         self.protect_button.clicked.connect(self.protect)
 
@@ -228,6 +234,7 @@ class MainPage(DesignPage):
     def set_processing_controls(self, running):
         if running:
             self.reset_result(processing=True)
+        self.settings_button.setEnabled(not running)
         self.add_button.setEnabled(not running)
         self.drop_button.setEnabled(not running)
         self.protect_button.setEnabled(not running)
@@ -239,7 +246,7 @@ class MainPage(DesignPage):
         self.current_filename.setText(self.files[index].name)
         self.current_filename.setToolTip(str(self.files[index].path))
         self.processing_order.setText(f"{index + 1} / {total}")
-        self.processing_status.setText("더미 보호 처리 중")
+        self.processing_status.setText("음성 보호 처리 중")
         # Keep the active file visible within the original three-row panel.
         self.file_offset = min(index, max(0, total - 3))
         self.refresh_files()
@@ -253,12 +260,12 @@ class MainPage(DesignPage):
         self.refresh_files()
 
     def on_processing_finished(self):
-        self.processing_status.setText("모든 파일 더미 처리 완료")
+        self.processing_status.setText("모든 파일 보호 처리 완료")
         if self.processor.results:
             self.show_result(self.processor.results[-1])
         if self.processor.failures:
             failures = self.processor.failures
-            self.processing_status.setText(f"더미 처리 종료 · 완료 {len(self.processor.results)} · 실패 {len(failures)}")
+            self.processing_status.setText(f"보호 처리 종료 · 완료 {len(self.processor.results)} · 실패 {len(failures)}")
             if not self.processor.results:
                 self.result_filename.setText("완료된 결과가 없습니다")
                 self.set_badge_status(self.result_badge, "실패")
@@ -295,9 +302,9 @@ class MainPage(DesignPage):
         for field, name in zip(self.result_names, (result.original_path.name, result.protected_name)):
             field.setText(name)
             field.setToolTip(name)
-        for field, value in zip(self.result_metrics, (f"{result.elapsed_seconds:.1f}초", "완료", f"{result.confidence}%")):
+        for field, value in zip(self.result_metrics, (f"{result.elapsed_seconds:.1f}초", "완료", "미측정")):
             field.setText(value)
-        self.result_metrics[2].setToolTip("고정 테스트값이며 실제 AI 분석 수치가 아닙니다.")
+        self.result_metrics[2].setToolTip("SPEC 모델은 보호 신뢰도를 측정하지 않습니다.")
         for role, play in self.play_buttons.items():
             available = self.playback.available(role)
             play.setEnabled(available)
@@ -365,7 +372,20 @@ class MainPage(DesignPage):
         super().hideEvent(event)
 
     def show_settings(self):
-        QMessageBox.information(self, "설정", "처리 방식: 로컬 처리\n지원 형식: WAV · MP3 · MP4\n최대 파일 수: 10개\nAI 보호 모델: 미연결")
+        if self.processor.running:
+            return
+        current = self.client.config.epsilon
+        value, accepted = QInputDialog.getDouble(
+            self, "보호 강도", "허용할 최대 음성 변화량 (ε / 255) · 기본값 8",
+            current, 0.01, 255.0, 2,
+        )
+        if accepted:
+            self.client.config = replace(self.client.config, epsilon=value)
+            self.strength_value.setText(f"{value:g} / 255")
 
     def show_help(self):
-        QMessageBox.information(self, "도움말", "파일 추가 버튼이나 영역을 클릭하거나 파일을 끌어 놓으세요.\n× 버튼으로 파일을 삭제할 수 있습니다.\n파일이 4개 이상이면 마우스 휠로 목록을 이동합니다.\n\n보호 시작은 파일당 약 1.5초의 더미 처리입니다.\n완료 후 목록의 파일명을 클릭하면 해당 결과를 확인할 수 있습니다.\n실제 파일은 생성하지 않으며 신뢰도는 고정 테스트값입니다.")
+        QMessageBox.information(
+            self, "도움말",
+            "WAV·MP3·MP4 파일을 추가하고 보호 시작을 누르세요. 설정에서 보호 강도를 바꿀 수 있습니다.\n"
+            "음성을 조각별로 GPU에서 처리한 뒤 다시 합칩니다. 완료 후 결과를 재생하거나 저장할 수 있습니다.",
+        )

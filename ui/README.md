@@ -1,10 +1,12 @@
-# Voice Protect 데스크톱 UI
+# Voice Protect Windows 앱
 
-PySide6로 만든 Voice Protect 앱입니다. SafeSpeech 모델 코드와 독립적으로 실행하며, 현재 보호 처리는 파일당 약 1.5초의 더미 시뮬레이션입니다.
+WAV·MP3·MP4 파일을 최대 10개까지 선택해 음성을 보호합니다. 완료 후 원본과 결과를 재생하고 결과를 별도 파일로 저장할 수 있습니다. 설정에서 보호 강도(ε)를 지정합니다. 기본값은 모델팀이 검증한 8입니다.
 
-## 실행 (Windows, Python 3.10 이상)
+## 실행 환경
 
-저장소 루트에서 다음 명령을 실행합니다.
+Windows에 Python 3.10 이상과 FFmpeg·ffprobe가 필요합니다. 모델은 WSL2와 NVIDIA GPU에서 실행합니다. [모델팀의 실행 가이드](https://github.com/graceyoon35-cmd/SafeSpeech/blob/research/spec-final-validation-20261119/docs/README_SPEC_HANDOFF_20261120_KO.md)에 따라 전용 WSL 환경과 고정 모델 자산을 준비하고, 같은 브랜치의 SPEC 저장소를 Windows 로컬 드라이브에 둡니다.
+
+PowerShell에서 실행합니다.
 
 ```powershell
 cd ui
@@ -13,39 +15,32 @@ python -m venv .venv
 .\.venv\Scripts\python.exe main.py
 ```
 
-이 UI만 실행할 때는 저장소 루트의 모델용 requirements.txt나 GPU 모델 다운로드가 필요하지 않습니다.
+첫 실행 전 `main.py` 옆에 `voiceprotect.ini`를 저장합니다. 실행 파일로 배포할 때는 `VoiceProtect.exe` 옆에 둡니다. 아래 경로를 해당 PC에 맞게 바꾸세요. `repository`는 Windows 경로이고 `python_executable`과 `assets`는 선택한 WSL 배포판 안의 경로입니다.
 
-## 포함한 기능
+```ini
+[spec]
+repository = C:\SafeSpeech\spec-runtime
+distribution = Ubuntu-22.04
+python_executable = /home/safespeech/.venvs/melo-training-20261118/bin/python
+assets = /home/safespeech/models/melo-spec-pinned-20261118
+epsilon = 8
+```
 
-- 시작 화면에서 메인 화면으로 전환, 실행 시 창 최대화 및 크기 대응
-- WAV·MP3·MP4 다중 선택·드롭, 중복 방지, 최대 10개 제한
-- 파일별 대기·처리 중·완료·실패 표시와 전체 진행률
-- 처리 실패 시 다음 파일 계속 처리, 안내 메시지 및 콘솔 로그
-- 결과별 원본명·보호 예정 파일명·처리 시간·테스트 신뢰도 92% 표시
-- 원본/실제 보호 결과의 오디오 재생·일시정지 및 상호 정지
-- 결과 저장 위치 선택, 실제 결과가 있으면 복사, 없으면 경로만 확인
+환경 변수 `VOICEPROTECT_SPEC_REPO`, `VOICEPROTECT_WSL_DISTRO`, `VOICEPROTECT_SPEC_PYTHON`, `VOICEPROTECT_SPEC_ASSETS`, `VOICEPROTECT_SPEC_EPSILON`가 있으면 해당 설정에 우선합니다. 결과·진단 파일의 기본 위치는 `%LOCALAPPDATA%\VoiceProtect\results`입니다. INI의 `output_root` 또는 `VOICEPROTECT_RESULT_DIR`로 변경할 수 있습니다.
 
-파일 목록은 세 행을 표시하며, 파일이 많으면 마우스 휠로 이동합니다. 처리 완료 후 목록의 파일명을 클릭하면 해당 결과를 볼 수 있습니다. 보호 결과 파일이 없으면 보호 재생 버튼은 비활성화됩니다. MP4는 오디오 트랙만 재생합니다.
+## 파일 처리
 
-## 코드 구성
+김소희의 [오디오 파이프라인](https://github.com/sohui2/SafeSpeech-audio-pipeline/blob/c439d6f2f086eac6d8df5749b0f8ae8ef1267708/audio_pipeline.py)이 음성을 44.1 kHz 모노로 추출하고, 기본 8초 단위로 0.5초씩 겹쳐 나눕니다. 앱은 각 조각을 PCM16 WAV로 만들어 [모델팀의 브리지](https://github.com/graceyoon35-cmd/SafeSpeech/blob/research/spec-final-validation-20261119/scripts/spec_desktop_bridge.py)를 통해 WSL GPU 실행기를 호출합니다. 브리지가 출력 해시와 길이·강도를 검증한 후 파이프라인이 결과를 병합합니다.
 
-| 파일 | 역할 |
-| --- | --- |
-| main.py | 앱 초기화, 글꼴 등록, QStackedWidget |
-| ui/start_page.py | 시작 화면 및 공통 UI·크기 대응 |
-| ui/main_page.py | 메인 화면과 기능 연결 |
-| styles.qss | 스타일 |
-| file_selection.py | 파일 검증·중복·개수 제한 |
-| protection_processor.py | 순차 더미 처리 및 결과 데이터 |
-| result_saver.py | 저장 경로 검증과 결과 복사 |
-| media_playback.py | QtMultimedia 오디오 재생 |
-| error_handling.py | 사용자 오류 안내와 콘솔 진단 |
-| assets/ | UI에서 사용하는 SVG와 나눔스퀘어 글꼴 |
+원본 전체가 1초보다 짧으면 무음으로 1초까지 채워 처리하고 원래 길이로 자릅니다. 완전 무음 조각은 그대로 유지하고, 파일 전체가 무음이면 실패로 표시합니다. MP3·MP4 재인코딩 후의 보호 성능은 별도 평가가 필요합니다. 앱에는 모델 신뢰도 수치가 제공되지 않습니다.
 
-## AI 모델 연결
+## Windows 실행 파일
 
-`DummyProtectionProcessor`의 `start`, `running`, `results`, `failures`와 기존 신호 인터페이스를 유지하며 실제 처리기로 교체할 수 있습니다. 추론은 작업 스레드나 별도 프로세스에서 실행해야 합니다.
+```powershell
+.\.venv\Scripts\python.exe -m pip install "pyinstaller>=6.12,<7"
+.\build_windows.ps1
+```
 
-`ProtectionResult.output_path`에 실제 결과 파일 경로를 지정하면 보호 결과 재생과 저장에 연결됩니다. 현재 더미 처리는 원본을 수정하거나 보호 파일을 생성하지 않습니다.
+배포 단위는 `dist\VoiceProtect` 폴더 전체입니다. 사용 중인 Windows FFmpeg·ffprobe를 함께 묶습니다. WSL 실행 환경과 모델 자산은 각 PC에서 준비합니다.
 
-나눔스퀘어 글꼴의 저작권 안내와 라이선스는 [assets/fonts/OFL.txt](assets/fonts/OFL.txt)에 포함되어 있습니다.
+나눔스퀘어 글꼴의 라이선스는 [assets/fonts/OFL.txt](assets/fonts/OFL.txt)에 있습니다.

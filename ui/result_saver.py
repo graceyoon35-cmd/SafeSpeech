@@ -5,7 +5,7 @@ import os
 import shutil
 import tempfile
 
-from protection_processor import ProtectionResult
+from spec_pipeline import ProtectionResult
 
 
 @dataclass(frozen=True)

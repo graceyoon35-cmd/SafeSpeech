@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 from PySide6.QtGui import QFont, QFontDatabase
-from PySide6.QtWidgets import QApplication, QStackedWidget
+from PySide6.QtWidgets import QApplication, QMessageBox, QStackedWidget
 
 from ui.start_page import StartPage
 from ui.main_page import MainPage
@@ -23,6 +23,13 @@ class VoiceProtect(QStackedWidget):
         self.start_page.prepare_layout()
         self.main_page.prepare_layout()
         self.start_page.start_requested.connect(lambda: self.setCurrentWidget(self.main_page))
+
+    def closeEvent(self, event):
+        if self.main_page.processor.running:
+            event.ignore()
+            QMessageBox.information(self, "보호 처리 중", "파일 처리가 끝난 뒤 앱을 닫아주세요.")
+            return
+        super().closeEvent(event)
 
 
 def create_app():
