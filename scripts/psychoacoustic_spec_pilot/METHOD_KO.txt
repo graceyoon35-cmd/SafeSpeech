@@ -1,0 +1,57 @@
+청각 마스킹 제약 SPEC 5발화 pilot 구현
+
+원본: Qin et al., ICML2019 본문 및 보충자료의 simultaneous masking 근사.
+https://proceedings.mlr.press/v97/qin19a/qin19a.pdf
+https://proceedings.mlr.press/v97/qin19a/qin19a-supp.pdf
+공개 수식을 바탕으로 이 프로젝트에서 구현했으며 외부 패키지 코드를 설치/복사하지 않았다.
+
+모델
+- 원본PCM16,44100Hz,mono. STFT periodic Hann,2048/512와1024/256의 두 해상도.
+- center=True,zero padding. PSD=abs(STFT/N)^2.
+- 각 해상도에서 원본 한 발화 전체의 최대 PSD를96dB로 맞추는 공통 offset 사용.
+  섭동도 반드시 동일한 원본 offset으로 비교한다. 섭동 자체를 재정규화하지 않는다.
+- 프레임별 국소 PSD 최대점 중 ATH 이상인20Hz~20kHz 후보를 고른다.
+- 후보의 인접3bin 전력을 합산한다.0.5Bark 안에서는 강한 후보부터 하나씩 남긴다.
+- 비음조성 masker도 tonal로 취급하는 보수적 근사. 별도 noise masker 분류는 없다.
+- Bark=13atan(0.00076f)+3.5atan((f/7500)^2).
+- ATH=3.64(f/1000)^(-0.8)-6.5exp(-0.6(f/1000-3.3)^2)+0.001(f/1000)^4.
+- masker offset=-6.025-0.275Bark; 하방27*dBark,
+  상방[-27+0.37max(masker_level-40,0)]*dBark의 두 기울기 확산.
+- 개별 masker 역치와 ATH는 선형 전력으로 합산한다. 고정 STFT 가중치/국소평균 벌점과 다르다.
+- 원본에서 계산한 역치를 고정해 사용한다. 보호본으로 역치를 높이지 않는다.
+-3dB/6dB 여유는 역치 전력을 각각10^(-margin/10)배로 제한한다.
+- ATH 정의 밖(20Hz미만/20kHz초과)은 추가 -100dBFS/STFT-bin 전력 상한을 둔다.
+  이 상한은 고주파로 에너지를 몰아넣지 않기 위한 공학적 제약이며 생리적 가청역치 주장이 아니다.
+- 실제 재생 SPL/헤드폰 응답은 보정하지 않았다.96dB는 물리적 음압 측정값이 아니다.
+- 시간적 전후 마스킹, 개인 청력, 양이 청취, 압축 재생/전달경로는 모델링하지 않는다.
+
+최적화
+- pinned 공식 Melo 초기 가중치/설정,seed52,SPEC beta10,epsilon2/255,10회.
+- 원래 Lmel+10*(Lnr+Lkl) 형식을 그대로 쓴다. Gaussian target은 기존과 같이 CPU에서
+  seed52로 생성한 뒤GPU로 옮긴다. 화자encoder/외부SIM 목적은 사용하지 않았다.
+- 모든 비교의 공정성을 위해 posterior forward 직전과Gaussian target 직전에seed52를 고정한다.
+  이 RNG 관례는 기존생성의 iteration사이 RNG 연결과 다르다. 그래서 과거 iter9 로그를
+  final PCM 점수로 쓰지 않고 원본/기준/무음억제/새후보를 모두 같은 관례로 새로 측정했다.
+- 가중치는 requires_grad=False이며 optimizer는 없다. 오디오 입력의 gradient만 계산한다.
+  기존생성경로의 posterior sampling을 위해 모듈 train-mode는 유지한다. 모델 학습이 아니다.
+- 매 회 SPEC 부호 하강을 제안하고, 시간별epsilon box와 두 STFT magnitude 제약을 교대 투영한다.
+- 무음의 부드러운 활동 envelope는 원본에서만 계산하며 시간별 정수epsilon 상한으로 사용한다.
+- PCM16 정수차 한계는257codes. 원음이 아니라 섭동만 최적화하며 원본 볼륨은 줄이지 않는다.
+- 최종 grid를 양자화해 독립NumPy FFT로 검사한다.1dB의 내부 reserve, 보수적 반복 보정 후에도
+  위반하면 잔차만 감쇠하는 fallback을 사용하고 사용값을 모두 기록한다. 이는 성공 근거가 아니다.
+- 제약을 만족한 PCM16 제안 중 SPEC loss가 줄어드는 것만 수락한다.10회가 끝나면 최저loss인
+  PCM16을 저장한다. 음성 전체에 출력 저역통과필터를 적용한 결과가 아니다.
+- 실제 목표3/6dB 역치를 완화하지 않는다. epsilon과mask를 각각 투영했다고 동시 준수를 가정하지 않는다.
+- numeric tolerance는 전력비1e-6(약0.0000044dB)뿐이다. 모든 최종파일을 재독해 검증한다.
+- zero residual fallback 가능성도 코드에서 명시하며 그 경우 보호 실패 진단으로 취급한다.
+  이번10개 출력에서는 완전한clean fallback은0개다.
+
+검증
+-5개 train발화×3/6dB,새 보호 WAV10개. 비교용Clean/eps2/silence_only는 기존 파일을 사용.
+- SNR/STOI,무음/약한/강한 발화RMS,clipping,원본hash/발화대응/길이/채널/SR를 검사.
+- 같은 PCM16을 독립NumPy STFT로 재검사.2048/1024 각각mask超過bin수/비율/최대/P95 기록.
+- 원본/기존두보호/새두후보를같은seed/forward로측정한SPEC final-PCM 점수와 개선량 보존율 기록.
+- 기존개선량의95% 보존은 분석문서의 탐색적guard다. 이는 방어 성공 임계값이 아니다.
+- 단위검사5개:ATH/Bark기준,독립STFT및역변환,masker/여유단조성,PCM grid/ε/mask,
+  비영 tonal 섭동 유지. 모두 통과했다.
+- 실제 사람 청취는 아직없다. Melo1000step 학습/SIM/CER는 이번에 수행하지 않았다.
